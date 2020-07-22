@@ -1,0 +1,17 @@
+{% extends 'core/page_elements/base.html' %}
+{% block content %}
+Create new Supporter
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">submit</button>
+</form>
+<div>
+
+    <ol>
+        {% for supporter in supporters %}
+            <li>{{ supporter.gender }} {{ supporter.last_name }} {{ supporter.mobile }}</li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}
