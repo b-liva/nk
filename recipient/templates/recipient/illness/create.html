@@ -1,0 +1,15 @@
+{% extends 'core/page_elements/base.html' %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ثبت</button>
+    </form>
+    <div>
+        <ol>
+            {% for illness in illnesses %}
+                <li>{{ illness.title }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}
