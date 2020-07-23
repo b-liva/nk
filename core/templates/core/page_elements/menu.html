@@ -4,8 +4,12 @@
         <li><a href="{% url 'supporter:index' %}">لیست حامیان</a></li>
         <li><a href="{% url 'recipient:create_recipient' %}">مددجو جدید</a></li>
         <li><a href="{% url 'recipient:index_recipient' %}">لیست مدد جویان</a></li>
-        <li><a href="{% url 'recipient:create_illness' %}">بیماری جدید</a></li>
-        <li><a href="{% url 'recipient:index_illness' %}">لیست بیماری ها</a></li>
+        <li><a href="{% url 'case:create_illness' %}">بیماری جدید</a></li>
+        <li><a href="{% url 'case:index_illness' %}">لیست بیماری ها</a></li>
+        <li><a href="{% url 'case:create_case' %}">پرونده جدید</a></li>
+        <li><a href="{% url 'case:index_case' %}">لیست پرونده ها</a></li>
+        <li><a href="{% url 'commitment:create' %}">واریزی جدید</a></li>
+        <li><a href="{% url 'commitment:index' %}">لیست واریزی ها</a></li>
     </ul>
 
 </div>

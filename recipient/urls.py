@@ -8,8 +8,4 @@ urlpatterns = [
         path('create/', views.create_recipient, name='create_recipient'),
         path('index/', views.index_recipients, name='index_recipient'),
     ])),
-    path('illness/', include([
-        path('create/', views.create_illness, name='create_illness'),
-        path('index/', views.index_illness, name='index_illness'),
-    ])),
 ]

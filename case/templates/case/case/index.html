@@ -1,0 +1,10 @@
+{% extends 'core/page_elements/base.html'  %}
+{% block content %}
+    <div>
+        <ol>
+            {% for case in cases %}
+                <li>{{ case.recipient.first_name }} {{ case.recipient.last_name }} {{ case.illness.count }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}

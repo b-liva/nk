@@ -1,0 +1,16 @@
+{% extends 'core/page_elements/base.html' %}
+{% block content %}
+Create new Supporter
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">submit</button>
+</form>
+<div>
+    <ol>
+        {% for commitment in commitments %}
+            <li>{{ commitment.supporter.last_name }} {{ commitment.case }} {{ commitment.amount }}</li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}
