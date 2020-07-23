@@ -1,10 +1,12 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-<div>
-    <ol>
-        {% for illness in illnesses %}
-            <li>{{ illness.title }}</li>
-        {% endfor %}
-    </ol>
-</div>
+    <div>
+        <ol>
+            {% for illness in illnesses %}
+                <li><a href="{% url 'case:illness_details' illness_pk=illness.pk %}">
+                    {{ illness.title }}
+                </a></li>
+            {% endfor %}
+        </ol>
+    </div>
 {% endblock %}

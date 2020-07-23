@@ -1,0 +1,9 @@
+{% extends 'core/page_elements/base.html'  %}
+{% load jalali_tags %}
+{% block content %}
+    <div>
+        <p>{{ supporter.first_name }} {{ supporter.last_name }}</p>
+        <p>{{ supporter.created|to_jalali:'%y/%m/%d' }}</p>
+        <a href="{% url 'supporter:edit' supporter_pk=supporter.pk %}">ویرایش</a>
+    </div>
+{% endblock %}

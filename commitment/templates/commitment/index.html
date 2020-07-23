@@ -1,10 +1,12 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-<div>
-    <ol>
-        {% for commitment in commitments %}
-            <li>{{ commitment.supporter.last_name }} {{ commitment.case }} {{ commitment.amount }}</li>
-        {% endfor %}
-    </ol>
-</div>
+    <div>
+        <ol>
+            {% for commitment in commitments %}
+                <li><a href="{% url 'commitment:details' commitment_pk=commitment.pk %}">
+                    {{ commitment.supporter.last_name }} {{ commitment.case }} {{ commitment.amount }}
+                </a></li>
+            {% endfor %}
+        </ol>
+    </div>
 {% endblock %}

@@ -3,7 +3,9 @@
     <div>
         <ol>
             {% for case in cases %}
-                <li>{{ case.recipient.first_name }} {{ case.recipient.last_name }} {{ case.illness.count }}</li>
+                <li><a href="{% url 'case:details' case_pk=case.pk %}">
+                    {{ case.recipient.first_name }} {{ case.recipient.last_name }} {{ case.illness.count }}
+                </a></li>
             {% endfor %}
         </ol>
     </div>

@@ -1,0 +1,9 @@
+{% extends 'core/page_elements/base.html'  %}
+{% load jalali_tags %}
+{% block content %}
+    <div>
+        <p>{{ recipient.first_name }} {{ recipient.last_name }}</p>
+        <p>{{ recipient.created|to_jalali:'%y/%m/%d' }}</p>
+        <a href="{% url 'recipient:edit' recipient_pk=recipient.pk %}">ویرایش</a>
+    </div>
+{% endblock %}

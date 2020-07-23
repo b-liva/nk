@@ -4,7 +4,7 @@ from caseworker.forms import CaseWorkerModelForm
 # Create your views here.
 
 
-def edit(request, cw_pk=None):
+def edit_or_create(request, cw_pk=None):
     if cw_pk:
         cw = get_object_or_404(CaseWorker, pk=cw_pk)
     else:
@@ -23,7 +23,7 @@ def edit(request, cw_pk=None):
         'form': form,
         'caseworkers': cws
     }
-    return render(request, 'caseworker/create.html', context)
+    return render(request, 'caseworker/edit_or_create.html', context)
 
 
 def index(request):

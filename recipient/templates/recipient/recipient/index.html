@@ -1,10 +1,12 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-<div>
-    <ol>
-        {% for rec in recipients %}
-            <li>{{ rec.first_name }} {{ rec.last_name }}</li>
-        {% endfor %}
-    </ol>
-</div>
+    <div>
+        <ol>
+            {% for rec in recipients %}
+                <li><a href="{% url 'recipient:details' recipient_pk=rec.pk %}">
+                    {{ rec.first_name }} {{ rec.last_name }}
+                </a></li>
+            {% endfor %}
+        </ol>
+    </div>
 {% endblock %}

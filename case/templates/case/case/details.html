@@ -1,0 +1,9 @@
+{% extends 'core/page_elements/base.html'  %}
+{% load jalali_tags %}
+{% block content %}
+    <div>
+        <p>{{ case.recipient.first_name }} {{ case.recipient.last_name }}</p>
+        <p>{{ case.date|to_jalali:'%y/%m/%d' }}</p>
+        <a href="{% url 'case:edit_case' case_pk=case.pk %}">ویرایش</a>
+    </div>
+{% endblock %}

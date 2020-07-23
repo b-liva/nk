@@ -1,0 +1,9 @@
+{% extends 'core/page_elements/base.html'  %}
+{% load jalali_tags %}
+{% block content %}
+    <div>
+        <p>{{ illness.title }} </p>
+        <p>{{ illness.created|to_jalali:'%y/%m/%d' }}</p>
+        <a href="{% url 'case:illness_edit' illness_pk=illness.pk %}">ویرایش</a>
+    </div>
+{% endblock %}

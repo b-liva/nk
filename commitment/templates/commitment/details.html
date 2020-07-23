@@ -1,0 +1,9 @@
+{% extends 'core/page_elements/base.html'  %}
+{% load jalali_tags %}
+{% block content %}
+    <div>
+        <p>{{ commitment.supporter.last_name }} {{ commitment.case.recipient.last_name }}</p>
+        <p>{{ commitment.date|to_jalali:'%y/%m/%d' }}</p>
+        <a href="{% url 'commitment:edit' commitment_pk=commitment.pk %}">ویرایش</a>
+    </div>
+{% endblock %}
