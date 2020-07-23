@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from recipient.forms import (RecipientModelForm, IllnessModelForm,)
-from recipient.models import Recipient, Illness
+from recipient.forms import (RecipientModelForm,)
+from recipient.models import Recipient
+from case.models import Illness
+from case.forms import IllnessModelForm
 
 
 # Create your views here.

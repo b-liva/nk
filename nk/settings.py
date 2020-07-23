@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'core',
     'supporter',
     'account',
-    'support',
-    'recipient'
+    'recipient',
+    'case',
+    'caseworker',
+    'commitment'
 ]
 
 MIDDLEWARE = [
