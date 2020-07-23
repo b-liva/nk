@@ -1,4 +1,4 @@
-from django.urls import path,include
+from django.urls import path
 from commitment import views
 
 app_name = 'commitment'
