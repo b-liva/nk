@@ -23,5 +23,6 @@ urlpatterns = [
     path('supporter/', include('supporter.urls')),
     path('recipient/', include('recipient.urls')),
     path('case/', include('case.urls')),
-    path('commitment', include('commitment.urls')),
+    path('commitment/', include('commitment.urls')),
+    path('caseworker/', include('caseworker.urls')),
 ]

@@ -1,0 +1,9 @@
+{% extends 'core/page_elements/base.html'  %}
+{% load jalali_tags %}
+{% block content %}
+    <div>
+        <p>{{ caseworker.first_name }} {{ caseworker.last_name }}</p>
+        <p>{{ caseworker.created|to_jalali:'%y/%m/%d' }}</p>
+        <a href="{% url 'caseworker:edit' cw_pk=caseworker.pk %}">ویرایش</a>
+    </div>
+{% endblock %}
