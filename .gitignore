@@ -132,3 +132,4 @@ dmypy.json
 .idea/
 sandbox/
 /db0.sqlite3
+/static
