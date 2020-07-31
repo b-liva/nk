@@ -14,3 +14,24 @@ class CaseWorkerModelForm(forms.ModelForm):
             'last_name': 'نام خانوادگی',
             'is_active': 'فعال',
         }
+
+
+        widgets = {
+            'gender': forms.Select(attrs={
+                'class': 'form-control',
+
+            }),
+            'first_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'نام',
+
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'نام خانودادگی',
+            }),
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'فعال',
+            }),
+        }

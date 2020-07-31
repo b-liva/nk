@@ -1,10 +1,4 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    <div>
-        <ol>
-            {% for cw in caseworkers %}
-                <li><a href="{% url 'caseworker:details' cw_pk=cw.pk %}">{{ cw.first_name }} {{ cw.last_name }}</a></li>
-            {% endfor %}
-        </ol>
-    </div>
+    {% include 'caseworker/table.html' with caseworkers=caseworkers %}
 {% endblock %}

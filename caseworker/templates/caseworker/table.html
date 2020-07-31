@@ -1,0 +1,46 @@
+<div class="col-md-12">
+    <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">مددکاران</h4>
+                <p class="card-category"> لیست مددکاران فعال</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                        <th>
+                            نام
+                        </th>
+                        <th>
+                            تاریخ
+                        </th>
+                        <th>
+                            تعداد حامی
+                        </th>
+                        <th>
+                            مجموع حمایت
+                        </th>
+                        </thead>
+                        <tbody>
+                        {% for cw in caseworkers %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'caseworker:details' cw_pk=cw.pk %}">{{ cw.first_name }} {{ cw.last_name }}</a>
+                                </td>
+                                <td>
+                                    {{ cw.created }}
+                                </td>
+                                <td>
+                                    5
+                                </td>
+                                <td class="text-primary">
+                                    $36,738
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>
