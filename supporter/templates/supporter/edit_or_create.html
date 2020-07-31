@@ -1,17 +1,62 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-Create new Supporter
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">submit</button>
-</form>
-<div>
-
-    <ol>
-        {% for supporter in supporters %}
-            <li>{{ supporter.gender }} {{ supporter.last_name }} {{ supporter.mobile }}</li>
-        {% endfor %}
-    </ol>
-</div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">حامی جدید</h4>
+                <p class="card-category">از طریق این فرم می توانید حامی جدید ثبت نمایید.</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ form.gender }}
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                {#                                <label class="bmd-label-floating">نام</label>#}
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                {#                                <label class="bmd-label-floating">Username</label>#}
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {#                                <label class="bmd-label-floating">شماره تماس</label>#}
+                                {{ form.mobile }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form.caseworker }}
+                            </div>
+                        </div>
+                    </div>
+{#                    <div class="row">#}
+{#                        <div class="col-md-12">#}
+{#                            <div class="form-group">#}
+{#                                <label>About Me</label>#}
+{#                                <div class="form-group">#}
+{#                                    <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm#}
+{#                                        in#}
+{#                                        that two seat Lambo.</label>#}
+{#                                    <textarea class="form-control" rows="5"></textarea>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <button type="submit" class="btn btn-primary pull-right">ثبت</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    {% include 'supporter/table.html' with suppoters=supporters %}
+    </div>
 {% endblock %}

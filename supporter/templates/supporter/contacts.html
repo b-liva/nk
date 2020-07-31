@@ -1,0 +1,35 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title mt-0"> حامیان</h4>
+            <p class="card-category"> لیست حامیان فعال</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        تلفن
+                    </th>
+                    <th>
+                        موبایل
+                    </th>
+                    </thead>
+                    <tbody>
+                    {% for contact in contacts %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'supporter:update_contact' supporter_pk=contact.supporter.pk contact_pk=contact.pk %}">
+                                    {{ contact.phone }}</a>
+                            </td>
+                            <td>
+                                {{ contact.mobile }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,13 @@
     <div>
         <p>{{ supporter.first_name }} {{ supporter.last_name }}</p>
         <p>{{ supporter.created|to_jalali:'%y/%m/%d' }}</p>
+        <h3>اطلاعات تماس</h3>
+        <ol>
+            {% for contact in supporter.contact_set.all %}
+            <li><i class="fa fa-mobile" aria-hidden="true"></i>  {{ contact.mobile }} - <i class="fa fa-phone" aria-hidden="true"></i> {{ contact.phone }}</li>
+            {% endfor %}
+        </ol>
         <a href="{% url 'supporter:edit' supporter_pk=supporter.pk %}">ویرایش</a>
+        <a href="{% url 'supporter:create_contact' supporter_pk=supporter.pk %}">ثبت اطلاعات تماس</a>
     </div>
 {% endblock %}

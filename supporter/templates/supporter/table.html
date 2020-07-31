@@ -1,0 +1,57 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title mt-0"> حامیان</h4>
+            <p class="card-category"> لیست حامیان فعال</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        نام
+                    </th>
+                    <th>
+                        شماره تماس
+                    </th>
+                    <th>
+                        تاریخ
+                    </th>
+                    <th>
+                        تعداد پرونده
+                    </th>
+                    <th>
+                        مجموع حمایت
+                    </th>
+                    </thead>
+                    <tbody>
+                    {% for supporter in supporters %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'supporter:details' supporter_pk=supporter.pk %}">
+                                    {{ supporter.first_name }} {{ supporter.last_name }}</a>
+                            </td>
+                            <td>
+                                {% if supporter.contact_set.first %}
+                                    {{ supporter.contact_set.first }}
+                                {% else %}
+                                    ثبت نشده
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ supporter.created }}
+                            </td>
+                            <td>
+                                3
+                            </td>
+                            <td class="text-primary">
+                                $36,738
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

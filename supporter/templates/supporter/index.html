@@ -1,13 +1,4 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    <div> لیست حامیان</div>
-    <div>
-        <ol>
-            {% for supporter in supporters %}
-                <li><a href="{% url 'supporter:details' supporter_pk=supporter.pk %}">
-                    {{ supporter.gender }} {{ supporter.last_name }} {{ supporter.mobile }}
-                </a></li>
-            {% endfor %}
-        </ol>
-    </div>
+    {% include 'supporter/table.html' with suppoters=supporters %}
 {% endblock %}

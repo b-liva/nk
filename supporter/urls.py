@@ -8,5 +8,9 @@ urlpatterns = [
     path('<int:supporter_pk>/', include([
         path('details', views.details, name='details'),
         path('edit', views.edit_or_create, name='edit'),
+        path('create-contact', views.upsert_contact, name='create_contact'),
+        path('contact/<int:contact_pk>', include([
+            path('update', views.upsert_contact, name='update_contact')
+        ]))
     ]))
 ]
