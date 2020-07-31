@@ -1,16 +1,35 @@
-{% extends 'core/page_elements/base.html'  %}
+{% extends 'core/page_elements/base.html' %}
 {% load jalali_tags %}
 {% block content %}
-    <div>
-        <p>{{ supporter.first_name }} {{ supporter.last_name }}</p>
-        <p>{{ supporter.created|to_jalali:'%y/%m/%d' }}</p>
-        <h3>اطلاعات تماس</h3>
-        <ol>
-            {% for contact in supporter.contact_set.all %}
-            <li><i class="fa fa-mobile" aria-hidden="true"></i>  {{ contact.mobile }} - <i class="fa fa-phone" aria-hidden="true"></i> {{ contact.phone }}</li>
-            {% endfor %}
-        </ol>
-        <a href="{% url 'supporter:edit' supporter_pk=supporter.pk %}">ویرایش</a>
-        <a href="{% url 'supporter:create_contact' supporter_pk=supporter.pk %}">ثبت اطلاعات تماس</a>
+    <div class="row">
+        <div class="col-md-12">
+            <p>{{ supporter }}<span style="color: darkblue; size: .8em">({{ supporter.caseworker }})</span></p>
+            <p>{{ supporter.created|to_jalali:'%y/%m/%d' }}</p>
+        </div>
+        <div class="col-md-12">
+            <h3>اطلاعات تماس</h3>
+            <ol>
+                {% for contact in supporter.contact_set.all %}
+                    <li><i class="fa fa-mobile" aria-hidden="true"></i> {{ contact.mobile }} -
+                        <i class="fa fa-phone" aria-hidden="true"></i> {{ contact.phone }}
+                    </li>
+                {% endfor %}
+            </ol>
+            <a class="btn btn-sm" href="{% url 'supporter:edit' supporter_pk=supporter.pk %}">ویرایش</a>
+            <a class="btn btn-sm" href="{% url 'supporter:create_contact' supporter_pk=supporter.pk %}">ثبت اطلاعات تماس</a>
+            <a class="btn btn-sm" href="{% url 'supporter:change_cw' supporter_pk=supporter.pk %}">تغییر مددکار</a>
+        </div>
+        <div class="col-md-12">
+            <h3>سوابق تغییر مددکار</h3>
+            <ol>
+                {% for cw_change in supporter.supportercwchange_set.all %}
+                    <li>تغییر از
+                        {{ cw_change.prev_cw }} به {{ cw_change.new_cw }}
+                        در تاریخ
+                        {{ cw_change.date }}
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
     </div>
 {% endblock %}

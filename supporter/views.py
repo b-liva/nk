@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from supporter.forms import SupporterForm, ContactForm
-from supporter.models import Supporter, Contact
+from supporter.forms import SupporterForm, ContactForm, SupportCwChangeForm
+from supporter.models import Supporter, Contact, SupporterCwChange
 
 
 # Create your views here.
@@ -75,3 +75,28 @@ def upsert_contact(request, supporter_pk, contact_pk=None):
     }
     print(context)
     return render(request, 'supporter/upsert_contact.html', context)
+
+
+def change_cw(request, supporter_pk, cw_change_pk=None):
+    supporter = get_object_or_404(Supporter, pk=supporter_pk)
+    if cw_change_pk:
+        cw_change = get_object_or_404(SupporterCwChange, pk=cw_change_pk)
+    else:
+        cw_change = SupporterCwChange()
+
+    if request.method == 'POST':
+        form = SupportCwChangeForm(request.POST or None, instance=cw_change)
+        if form.is_valid():
+            cw_change_item = form.save(commit=False)
+            cw_change_item.supporter = supporter
+            cw_change_item.prev_cw = supporter.caseworker
+            cw_change_item.save()
+            return redirect("supporter:details", supporter_pk=supporter.pk)
+    else:
+        form = SupportCwChangeForm(instance=cw_change)
+
+    context = {
+        'form': form,
+        'supporter': supporter
+    }
+    return render(request, 'supporter/cw_upsert.html', context)

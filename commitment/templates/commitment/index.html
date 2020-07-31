@@ -20,6 +20,9 @@
                             پرونده
                         </th>
                         <th>
+                            مددکار
+                        </th>
+                        <th>
                             مبلغ
                         </th>
                         </thead>
@@ -35,6 +38,9 @@
                                 </td>
                                 <td>
                                     <a href="{% url 'case:details' case_pk=commitment.case.pk %}">{{ commitment.case }}</a>
+                                </td>
+                                <td>
+                                    {{ commitment.caseworkder }}
                                 </td>
                                 <td class="text-primary">
                                     <a href="{% url 'commitment:details' commitment_pk=commitment.pk %}">

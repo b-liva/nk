@@ -1,0 +1,39 @@
+{% extends 'core/page_elements/base.html' %}
+{% load jalali_tags static %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">تغییر مددکار</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">حامی: {{ supporter }}</div>
+                    <div class="row">مددکار فعلی: {{ supporter.caseworker }}</div>
+                    <div class="row">
+                        تغییر به
+                        <div class="col-md-2">
+                            {{ form.new_cw }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{ form.date }}
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">ثبت</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {#        {% include 'supporter/contacts.html' with contacts=contacts %}#}
+    </div>
+    <!-- By default, Datepicker using jQuery, you need to set your script after loading jQuery! -->
+    <!-- loading directly -->
+    <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
+    <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
+    <!-- OR -->
+    <!-- loading by form (if used AdminJalaliDateWidget) -->
+    {{ form.media }}
+{% endblock %}
