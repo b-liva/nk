@@ -1,17 +1,82 @@
 <div>
-    <ul>
-        <li><a href="{% url 'supporter:create' %}">حامی جدید</a></li>
-        <li><a href="{% url 'supporter:index' %}">لیست حامیان</a></li>
-        <li><a href="{% url 'recipient:create_recipient' %}">مددجو جدید</a></li>
-        <li><a href="{% url 'recipient:index_recipient' %}">لیست مدد جویان</a></li>
-        <li><a href="{% url 'caseworker:create' %}">مددکار جدید</a></li>
-        <li><a href="{% url 'caseworker:index' %}">لیست مدد کاران</a></li>
-        <li><a href="{% url 'case:create_illness' %}">بیماری جدید</a></li>
-        <li><a href="{% url 'case:index_illness' %}">لیست بیماری ها</a></li>
-        <li><a href="{% url 'case:create_case' %}">پرونده جدید</a></li>
-        <li><a href="{% url 'case:index_case' %}">لیست پرونده ها</a></li>
-        <li><a href="{% url 'commitment:create' %}">واریزی جدید</a></li>
-        <li><a href="{% url 'commitment:index' %}">لیست واریزی ها</a></li>
+    <ul class="nav side-menu">
+        <li class="nav-item active ">
+            <a class="nav-link" href="{% url 'home' %}">
+                <i class="material-icons">dashboard</i>
+                <p>داشبورد</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'supporter:create' %}">
+                <i class="material-icons">unarchive</i>
+                <p>حامی جدید</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'supporter:index' %}">
+                <i class="material-icons">person</i>
+                <p>حامیان</p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'recipient:create_recipient' %}">
+                <i class="material-icons">person</i>
+                <p>مددجو جدید</p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'recipient:index_recipient' %}">
+                <i class="material-icons">content_paste</i>
+                <p>مدد جویان</p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'caseworker:create' %}">
+                <i class="material-icons">library_books</i>
+                <p>مددکار جدید</p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'caseworker:index' %}">
+                <i class="material-icons">bubble_chart</i>
+                <p>مدد کاران</p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'case:create_illness' %}">
+                <i class="material-icons">location_ons</i>
+                <p>بیماری جدید</p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'case:index_illness' %}">
+                <i class="material-icons">notifications</i>
+                <p>بیماری ها</p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'case:create_case' %}">
+                <i class="material-icons">language</i>
+                <p>پرونده جدید</p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'case:index_case' %}">
+                <i class="material-icons">language</i>
+                <p>پرونده ها</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'commitment:create' %}">
+                <i class="material-icons">unarchive</i>
+                <p>واریزی جدید</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'commitment:index' %}">
+                <i class="material-icons">unarchive</i>
+                <p>واریزی ها</p>
+            </a>
+        </li>
     </ul>
-
 </div>

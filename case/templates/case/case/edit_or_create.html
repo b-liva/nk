@@ -1,23 +1,46 @@
 {% extends 'core/page_elements/base.html' %}
 {% load jalali_tags static %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">ثبت</button>
-    </form>
-    <div>
-        <ol>
-            {% for case in cases %}
-                <li>{{ case.recipient.first_name }} {{ case.recipient.last_name }} {{ case.illness.count }}</li>
-            {% endfor %}
-        </ol>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">پرونده جدید</h4>
+                <p class="card-category">از طریق این فرم می توانید پرونده جدید ثبت نمایید.</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ form.recipient }}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {#                                <label class="bmd-label-floating">نام</label>#}
+                                {{ form.illness }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {#                                <label class="bmd-label-floating">Username</label>#}
+                                {{ form.date }}
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                {#                                <label class="bmd-label-floating">Username</label>#}
+                                {{ form.description }}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">ثبت</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
     </div>
-    <!-- By default, Datepicker using jQuery, you need to set your script after loading jQuery! -->
-    <!-- loading directly -->
-    <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
-    <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
-    <!-- OR -->
-    <!-- loading by form (if used AdminJalaliDateWidget) -->
-    {{ form.media }}
+    <div class="row">
+        {% include 'case/case/table.html' with cases=cases %}
+    </div>
+
 {% endblock %}

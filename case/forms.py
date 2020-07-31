@@ -33,3 +33,19 @@ class CaseModelForm(forms.ModelForm):
             label= ('تاریخ'),
             widget=AdminJalaliDateWidget
         )
+
+    widgets = {
+        'recipient': forms.Select(attrs={
+            'class': 'form-control',
+
+        }),
+        'illness': forms.Select(attrs={
+            'class': 'form-control',
+            'placeholder': 'بیماری',
+
+        }),
+        'description': forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'توضیحات',
+        }),
+    }

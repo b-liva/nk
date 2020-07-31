@@ -1,12 +1,4 @@
-{% extends 'core/page_elements/base.html'  %}
+{% extends 'core/page_elements/base.html' %}
 {% block content %}
-    <div>
-        <ol>
-            {% for case in cases %}
-                <li><a href="{% url 'case:details' case_pk=case.pk %}">
-                    {{ case.recipient.first_name }} {{ case.recipient.last_name }} {{ case.illness.count }}
-                </a></li>
-            {% endfor %}
-        </ol>
-    </div>
+    {% include 'case/case/table.html' with cases=cases %}
 {% endblock %}
