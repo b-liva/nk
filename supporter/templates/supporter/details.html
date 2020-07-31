@@ -16,17 +16,30 @@
                 {% endfor %}
             </ol>
             <a class="btn btn-sm" href="{% url 'supporter:edit' supporter_pk=supporter.pk %}">ویرایش</a>
-            <a class="btn btn-sm" href="{% url 'supporter:create_contact' supporter_pk=supporter.pk %}">ثبت اطلاعات تماس</a>
+            <a class="btn btn-sm" href="{% url 'supporter:create_contact' supporter_pk=supporter.pk %}">ثبت اطلاعات
+                تماس</a>
             <a class="btn btn-sm" href="{% url 'supporter:change_cw' supporter_pk=supporter.pk %}">تغییر مددکار</a>
+            <a class="btn btn-sm" href="{% url 'supporter:create_followup' supporter_pk=supporter.pk %}">ثبت پیگیری</a>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h3>سوابق تغییر مددکار</h3>
             <ol>
                 {% for cw_change in supporter.supportercwchange_set.all %}
                     <li>تغییر از
                         {{ cw_change.prev_cw }} به {{ cw_change.new_cw }}
                         در تاریخ
-                        {{ cw_change.date }}
+                        <p>{{ cw_change.created|to_jalali:'%y/%m/%d' }}</p>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="col-md-6">
+            <h3>شرح پیگیری</h3>
+            <ol>
+                {% for followup in supporter.followup_set.all %}
+                    <li>
+                        <p>{{ followup.created|to_jalali:'%y/%m/%d' }}: {{ followup.caseworker }}</p>
+                        <p>{{ followup.description }}</p>
                     </li>
                 {% endfor %}
             </ol>

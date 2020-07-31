@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from supporter.forms import SupporterForm, ContactForm, SupportCwChangeForm
-from supporter.models import Supporter, Contact, SupporterCwChange
+from supporter.forms import SupporterForm, ContactForm, SupportCwChangeForm, FollowUpModelForm
+from supporter.models import Supporter, Contact, SupporterCwChange, FollowUp
 
 
 # Create your views here.
@@ -100,3 +100,27 @@ def change_cw(request, supporter_pk, cw_change_pk=None):
         'supporter': supporter
     }
     return render(request, 'supporter/cw_upsert.html', context)
+
+
+def create_followup(request, supporter_pk, followup_pk=None):
+    supporter = get_object_or_404(Supporter, pk=supporter_pk)
+    if followup_pk:
+        followup = get_object_or_404(FollowUp, pk=followup_pk)
+    else:
+        followup = FollowUp()
+
+    if request.method == 'POST':
+        form = FollowUpModelForm(request.POST or None, instance=followup)
+        if form.is_valid():
+            followup_ins = form.save(commit=False)
+            followup_ins.supporter = supporter
+            followup_ins.save()
+            return redirect("supporter:details", supporter_pk=supporter.pk)
+    else:
+        form = FollowUpModelForm(instance=followup)
+
+    context = {
+        'form': form,
+        'supporter': supporter,
+    }
+    return render(request, 'supporter/followup/followup_upsert.html', context)

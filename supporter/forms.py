@@ -2,7 +2,7 @@ from django import forms
 from jalali_date.fields import JalaliDateField
 from jalali_date.widgets import AdminJalaliDateWidget
 from django.utils.translation import gettext as _
-from supporter.models import Supporter, Contact, SupporterCwChange
+from supporter.models import Supporter, Contact, SupporterCwChange, FollowUp
 
 
 class SupporterForm(forms.ModelForm):
@@ -81,6 +81,29 @@ class SupportCwChangeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SupportCwChangeForm, self).__init__(*args, **kwargs)
+        self.fields['date'] = JalaliDateField(
+            label=_('تاریخ'),  # date format is  "yyyy-mm-dd"
+            widget=AdminJalaliDateWidget  # optional, to use default datepicker
+        )
+
+
+class FollowUpModelForm(forms.ModelForm):
+    class Meta:
+        model = FollowUp
+        fields = ('date', 'description',)
+
+        labels = {
+            'description': ('شرح پیگیری',)
+        }
+
+        widgets = {
+            'description': forms.Textarea(attrs={
+                'class': 'form-control'
+            })
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(FollowUpModelForm, self).__init__(*args, **kwargs)
         self.fields['date'] = JalaliDateField(
             label=_('تاریخ'),  # date format is  "yyyy-mm-dd"
             widget=AdminJalaliDateWidget  # optional, to use default datepicker

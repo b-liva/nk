@@ -33,3 +33,17 @@ class SupporterCwChange(TimeStampedModel):
     #     # self.prev_cw = self.supporter.caseworker
         self.supporter.caseworker = self.new_cw
         self.supporter.save()
+
+
+class FollowUp(TimeStampedModel):
+    supporter = models.ForeignKey(Supporter, on_delete=models.DO_NOTHING)
+    caseworker = models.ForeignKey(CaseWorker, on_delete=models.DO_NOTHING)
+    date = models.DateField(default=now)
+    description = models.TextField(max_length=150)
+
+    def __str__(self):
+        return f"{self.supporter} {self.date}"
+
+    def save(self, *args, **kwargs):
+        self.caseworker = self.supporter.caseworker
+        super(FollowUp, self).save()
