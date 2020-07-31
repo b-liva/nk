@@ -1,15 +1,39 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ثبت</button>
-</form>
-<div>
-    <ol>
-        {% for rec in recipients %}
-            <li>{{ rec.first_name }} {{ rec.last_name }}</li>
-        {% endfor %}
-    </ol>
-</div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">مددجو جدید</h4>
+                <p class="card-category">از طریق این فرم می توانید مددجو جدید ثبت نمایید.</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ form.gender }}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {#                                <label class="bmd-label-floating">نام</label>#}
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {#                                <label class="bmd-label-floating">Username</label>#}
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right">ثبت</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    {% include 'recipient/recipient/table.html' with recipients=recipients %}
+    </div>
 {% endblock %}
