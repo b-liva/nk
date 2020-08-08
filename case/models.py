@@ -16,7 +16,7 @@ class Illness(TimeStampedModel):
 class Case(TimeStampedModel):
     recipient = models.ForeignKey(Recipient, on_delete=models.CASCADE)
     illness = models.ManyToManyField(Illness)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, null=True, blank=True)
     date = models.DateField(default=now)
 
     def __str__(self):

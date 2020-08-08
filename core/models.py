@@ -31,7 +31,7 @@ class Gender(models.Model):
 
 class Persona(TimeStampedModel):
     gender = models.ForeignKey(Gender, on_delete=models.DO_NOTHING)
-    first_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30)
     is_active = models.BooleanField(default=True)
 
