@@ -28,7 +28,7 @@
                     <li>تغییر از
                         {{ cw_change.prev_cw }} به {{ cw_change.new_cw }}
                         در تاریخ
-                        <p>{{ cw_change.created|to_jalali:'%y/%m/%d' }}</p>
+                        <p>{{ cw_change.date|to_jalali:'%y/%m/%d' }}</p>
                     </li>
                 {% endfor %}
             </ol>
@@ -38,7 +38,7 @@
             <ol>
                 {% for followup in supporter.followup_set.all %}
                     <li>
-                        <p>{{ followup.created|to_jalali:'%y/%m/%d' }}: {{ followup.caseworker }}</p>
+                        <p>{{ followup.date|to_jalali:'%y/%m/%d' }}: {{ followup.caseworker }}</p>
                         <p>{{ followup.description }}</p>
                     </li>
                 {% endfor %}
