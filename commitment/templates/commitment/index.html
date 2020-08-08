@@ -25,6 +25,12 @@
                         <th>
                             مبلغ
                         </th>
+                        <th>
+                            نیاز به گزارش
+                        </th>
+                        <th>
+                            گزارش ارسال شده
+                        </th>
                         </thead>
                         <tbody>
                         {% for commitment in commitments %}
@@ -46,6 +52,8 @@
                                     <a href="{% url 'commitment:details' commitment_pk=commitment.pk %}">
                                         {{ commitment.amount }}</a>
                                 </td>
+                                <td><input type="checkbox" disabled {% if commitment.report_wanted %}checked{% endif %}></td>
+                                <td><input type="checkbox" disabled {% if commitment.report_sent %}checked{% endif %}></td>
                             </tr>
                         {% endfor %}
                         </tbody>
