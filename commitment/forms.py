@@ -9,12 +9,13 @@ from commitment.models import Commitment
 class CommitmentModelForm(forms.ModelForm):
     class Meta:
         model = Commitment
-        fields = ('case', 'supporter', 'amount', 'date', 'report_wanted', 'report_sent')
+        fields = ('case', 'supporter', 'amount', 'date', 'account', 'report_wanted', 'report_sent')
 
         labels = {
             'case': 'پرونده',
             'supporter': 'حامی',
             'date': 'تاریخ',
+            'account': 'حساب',
             'amount': 'مبلغ',
             'report_wanted': 'گزارش الزامی است',
             'report_sent': 'گزارش ارسال شده است',
