@@ -28,7 +28,9 @@ ALLOWED_HOSTS = []
 ROOT_DIR = (
         environ.Path(__file__) - 2
 )
+print(ROOT_DIR)
 
+LOCALE_PATHS = [ROOT_DIR.path("locale")]
 # Application definition
 
 INSTALLED_APPS = [
