@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+import sys
+
 import environ
 import os
 
@@ -19,16 +21,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@^%2y*vthth6(98pz8y3)03=!+wfkm^_+j$9_%)x&)rk9771ow'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DJANGO_DEBUG', 0)))
+# PRODUCTION = bool(int(os.environ.get('PRODUCTION', 0)))
+ROOT_PATH = os.environ.get('ROOT_PATH', None)
+# if PRODUCTION:
+sys.path.insert(0, ROOT_PATH)
 
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
+if ALLOWED_HOSTS_ENV:
+    ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
+
 ROOT_DIR = (
         environ.Path(__file__) - 2
 )
-print(ROOT_DIR)
 
 LOCALE_PATHS = [ROOT_DIR.path("locale")]
 # Application definition
@@ -90,10 +99,15 @@ WSGI_APPLICATION = 'nk.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+SQLITE_DB_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
+SQLITE_DB_ENV = os.environ.get('SQLITE_DB', None)
+if SQLITE_DB_ENV:
+    SQLITE_DB_PATH = SQLITE_DB_ENV
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': SQLITE_DB_PATH,
     }
 }
 
@@ -131,8 +145,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+STATIC_URL = "/static/static/"
+MEDIA_URL = "/static/media/"
+
+STATIC_ROOT = '/vol/web/static'
+MEDIA_ROOT = '/vol/web/media'
 
 AUTH_USER_MODEL = 'account.User'
 
