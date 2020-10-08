@@ -1,6 +1,8 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from commitment.models import Commitment
 from commitment.forms import CommitmentModelForm
+from commitment.filters import CommitmentFilter
 # Create your views here.
 
 
@@ -18,17 +20,25 @@ def edit_or_create(request, commitment_pk=None):
         form = CommitmentModelForm(instance=commitment)
 
     commitments = Commitment.objects.all()
+    paginator = Paginator(commitments, 50)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
         'form': form,
-        'commitments': commitments
+        'page_obj': page_obj
     }
     return render(request, 'commitment/edit_or_create.html', context)
 
 
 def index(request):
     commitments = Commitment.objects.all()
+    f = CommitmentFilter(request.GET, commitments)
+    paginator = Paginator(f.qs, 50)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'commitments': commitments
+        'filter': f,
+        'page_obj': page_obj
     }
     return render(request, 'commitment/index.html', context)
 

@@ -1,69 +1,9 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title ">واریزی</h4>
-                <p class="card-category"> لیست واریزی</p>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class=" text-primary">
-                        <th>
-                            نام
-                        </th>
-                        <th>
-                            تاریخ
-                        </th>
-                        <th>
-                            پرونده
-                        </th>
-                        <th>
-                            مددکار
-                        </th>
-                        <th>
-                            مبلغ
-                        </th>
-                        <th>
-                            حساب
-                        </th>
-                        <th>
-                            نیاز به گزارش
-                        </th>
-                        <th>
-                            گزارش ارسال شده
-                        </th>
-                        </thead>
-                        <tbody>
-                        {% for commitment in commitments %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'supporter:details' supporter_pk=commitment.supporter.pk %}">
-                                        {{ commitment.supporter.first_name }}  {{ commitment.supporter.last_name }}</a>
-                                </td>
-                                <td>
-                                    {{ commitment.created }}
-                                </td>
-                                <td>
-                                    <a href="{% url 'case:details' case_pk=commitment.case.pk %}">{{ commitment.case }}</a>
-                                </td>
-                                <td>
-                                    {{ commitment.caseworkder }}
-                                </td>
-                                <td class="text-primary">
-                                    <a href="{% url 'commitment:details' commitment_pk=commitment.pk %}">
-                                        {{ commitment.amount }}</a>
-                                </td>
-                                <td>{{ commitment.account.title }}</td>
-                                <td><input type="checkbox" disabled {% if commitment.report_wanted %}checked{% endif %}></td>
-                                <td><input type="checkbox" disabled {% if commitment.report_sent %}checked{% endif %}></td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    <form method="get">
+    {{ filter.form }}
+    <input type="submit" value="جستجو"/>
+    </form>
+    {% include 'commitment/table.html' with commitments=page_obj %}
+    {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
 {% endblock %}

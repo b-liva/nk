@@ -9,16 +9,28 @@ from commitment.models import Commitment
 class CommitmentModelForm(forms.ModelForm):
     class Meta:
         model = Commitment
-        fields = ('case', 'supporter', 'amount', 'date', 'account', 'report_wanted', 'report_sent')
+        fields = ('case', 'supporter', 'amount', 'date',)
 
         labels = {
             'case': 'پرونده',
             'supporter': 'حامی',
             'date': 'تاریخ',
-            'account': 'حساب',
             'amount': 'مبلغ',
-            'report_wanted': 'گزارش الزامی است',
-            'report_sent': 'گزارش ارسال شده است',
+        }
+
+        widgets = {
+            'case': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+            'supporter': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'date': forms.DateInput(attrs={
+                'class': 'form-control'
+            }),
+            'amount': forms.TextInput(attrs={
+                'class': 'form-control'
+            })
         }
 
     def __init__(self, *args, **kwargs):
@@ -27,4 +39,3 @@ class CommitmentModelForm(forms.ModelForm):
             label=_('تاریخ'),  # date format is  "yyyy-mm-dd"
             widget=AdminJalaliDateWidget  # optional, to use default datepicker
         )
-

@@ -1,28 +1,47 @@
 {% extends 'core/page_elements/base.html' %}
 {% load jalali_tags static %}
 
-
 {% block content %}
-    Create new Supporter
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">submit</button>
-    </form>
-    <div>
-        <ol>
-            {% for commitment in commitments %}
-                <li>{{ commitment.supporter.last_name }} {{ commitment.case }} {{ commitment.amount }}</li>
-                <p>{{ commitment.date|to_jalali:'%y/%m/%d _ %H:%M:%S' }}</p>
-            {% endfor %}
-        </ol>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">واریز جدید</h4>
+                <p class="card-category">از طریق این فرم می توانید واریز جدید ثبت نمایید.</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            <label for="case">پرونده</label>
+                            {{ form.case }}
+                        </div>
+                        <div class="col-md-3">
+                            <label for="supporter">حامی</label>
+                            {{ form.supporter }}
+                        </div>
+                        <div class="col-md-3">
+                            <label for="amount">مبلغ</label>
+                            {{ form.amount }}
+                        </div>
+                        <div class="col-md-3">
+                            <label for="date">تاریخ</label>
+                            {{ form.date }}
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">ثبت</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+    {% include 'commitment/table.html' with commitments=page_obj %}
+    {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
     <!-- By default, Datepicker using jQuery, you need to set your script after loading jQuery! -->
     <!-- loading directly -->
-    <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
     <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
     <!-- OR -->
     <!-- loading by form (if used AdminJalaliDateWidget) -->
     {{ form.media }}
-
 {% endblock %}
