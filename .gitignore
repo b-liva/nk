@@ -133,3 +133,4 @@ dmypy.json
 sandbox/
 /db0.sqlite3
 /static
+app/static/

@@ -1,6 +1,6 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    <div class="col-md-12">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">حامی جدید</h4>
@@ -13,50 +13,46 @@
                         <div class="col-md-2">
                             {{ form.gender }}
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 {#                                <label class="bmd-label-floating">نام</label>#}
                                 {{ form.first_name }}
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 {#                                <label class="bmd-label-floating">Username</label>#}
                                 {{ form.last_name }}
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {#                                <label class="bmd-label-floating">شماره تماس</label>#}
-                                {{ form.mobile }}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 {{ form.caseworker }}
                             </div>
                         </div>
                     </div>
-{#                    <div class="row">#}
-{#                        <div class="col-md-12">#}
-{#                            <div class="form-group">#}
-{#                                <label>About Me</label>#}
-{#                                <div class="form-group">#}
-{#                                    <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm#}
-{#                                        in#}
-{#                                        that two seat Lambo.</label>#}
-{#                                    <textarea class="form-control" rows="5"></textarea>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
+                    {#                    <div class="row">#}
+                    {#                        <div class="col-md-12">#}
+                    {#                            <div class="form-group">#}
+                    {#                                <label>About Me</label>#}
+                    {#                                <div class="form-group">#}
+                    {#                                    <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm#}
+                    {#                                        in#}
+                    {#                                        that two seat Lambo.</label>#}
+                    {#                                    <textarea class="form-control" rows="5"></textarea>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                     <button type="submit" class="btn btn-primary pull-right">ثبت</button>
                     <div class="clearfix"></div>
                 </form>
             </div>
         </div>
     </div>
+
     <div class="row">
-    {% include 'supporter/table.html' with suppoters=supporters %}
+        {% include 'supporter/table.html' with supporters=page_obj %}
+        {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
     </div>
 {% endblock %}

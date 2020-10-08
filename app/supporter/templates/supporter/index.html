@@ -1,4 +1,11 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    {% include 'supporter/table.html' with suppoters=supporters %}
+    <div class="row">
+        <form method="get">
+            {{ filter.form }}
+            <input type="submit" value="جستجو"/>
+        </form>
+    </div>
+    {% include 'supporter/table.html' with supporters=page_obj %}
+    {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
 {% endblock %}

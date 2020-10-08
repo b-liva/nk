@@ -1,3 +1,4 @@
+{% load humanize %}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header card-header-primary">
@@ -32,7 +33,7 @@
                         <tr>
                             <td>
                                 <a href="{% url 'supporter:details' supporter_pk=supporter.pk %}">
-                                    {{ supporter.first_name }} {{ supporter.last_name }}</a>
+                                    {{ supporter.gender }} {{ supporter.last_name }}</a>
                             </td>
                             <td>
                                 {% if supporter.contact_set.first %}
@@ -48,10 +49,10 @@
                                 {{ supporter.caseworker.last_name }}
                             </td>
                             <td>
-                                3
+                                {{ supporter.num_cases }}
                             </td>
                             <td class="text-primary">
-                                $36,738
+                                {{ supporter.total_support|intcomma}}
                             </td>
                         </tr>
                     {% endfor %}

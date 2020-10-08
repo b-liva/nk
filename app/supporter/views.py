@@ -1,6 +1,8 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from supporter.forms import SupporterForm, ContactForm, SupportCwChangeForm, FollowUpModelForm
 from supporter.models import Supporter, Contact, SupporterCwChange, FollowUp
+from supporter.filters import SupporterFilter
 
 
 # Create your views here.
@@ -16,22 +18,31 @@ def edit_or_create(request, supporter_pk=None):
         if form.is_valid():
             supporter = form.save(commit=False)
             supporter.save()
-            return redirect('supporter:create')
+            # return redirect('supporter:create')
+            return redirect('supporter:create_contact', supporter_pk=supporter.pk)
     else:
         form = SupporterForm(instance=supp)
 
     supporters = Supporter.objects.all()
+    paginator = Paginator(supporters, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
         'form': form,
-        'supporters': supporters
+        'page_obj': page_obj
     }
     return render(request, 'supporter/edit_or_create.html', context)
 
 
 def index(request):
-    supporters = Supporter.objects.all()
+    supporters = Supporter.objects.all().order_by('pk').reverse()
+    f = SupporterFilter(request.GET, supporters)
+    paginator = Paginator(f.qs, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'supporters': supporters,
+        'filter': f,
+        'page_obj': page_obj
     }
     return render(request, 'supporter/index.html', context)
 
@@ -61,7 +72,8 @@ def upsert_contact(request, supporter_pk, contact_pk=None):
             contact_form = form.save(commit=False)
             contact_form.supporter = supporter
             contact_form.save()
-            return redirect('supporter:create_contact', supporter_pk=supporter_pk)
+            # return redirect('supporter:create_contact', supporter_pk=supporter_pk)
+            return redirect('commitment:create')
     else:
         form = ContactForm(instance=contact)
         print('!show db')
@@ -115,6 +127,7 @@ def create_followup(request, supporter_pk, followup_pk=None):
             followup_ins = form.save(commit=False)
             followup_ins.supporter = supporter
             followup_ins.save()
+            form.save_m2m()
             return redirect("supporter:details", supporter_pk=supporter.pk)
     else:
         form = FollowUpModelForm(instance=followup)

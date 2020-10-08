@@ -90,10 +90,11 @@ class SupportCwChangeForm(forms.ModelForm):
 class FollowUpModelForm(forms.ModelForm):
     class Meta:
         model = FollowUp
-        fields = ('date', 'description',)
+        fields = ('date', 'description', 'case')
 
         labels = {
-            'description': ('شرح پیگیری',)
+            'description': ('شرح پیگیری',),
+            'case': ('پرونده',)
         }
 
         widgets = {

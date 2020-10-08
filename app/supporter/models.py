@@ -1,5 +1,8 @@
 from django.db import models
+from django.db.models import Sum, Count
 from django.utils.timezone import now
+
+from case.models import Case
 from core.models import Persona, TimeStampedModel
 from caseworker.models import CaseWorker
 
@@ -10,6 +13,16 @@ class Supporter(Persona):
 
     def __str__(self):
         return f"{self.gender} {self.last_name}"
+
+    def total_support(self):
+        from commitment.models import Commitment
+        amount_total = Commitment.objects.filter(supporter=self).aggregate(sum=Sum('amount'))['sum']
+        return amount_total
+
+    def num_cases(self):
+        from case.models import Case
+        cases_count = Case.objects.filter(commitment__supporter=self).aggregate(count=Count('id'))['count']
+        return cases_count
 
 
 class Contact(TimeStampedModel):
@@ -39,6 +52,7 @@ class FollowUp(TimeStampedModel):
     supporter = models.ForeignKey(Supporter, on_delete=models.DO_NOTHING)
     caseworker = models.ForeignKey(CaseWorker, on_delete=models.DO_NOTHING)
     date = models.DateField(default=now)
+    case = models.ManyToManyField(Case)
     description = models.TextField(max_length=150)
 
     def __str__(self):
