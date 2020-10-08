@@ -1,6 +1,8 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from case.forms import IllnessModelForm, CaseModelForm
 from case.models import Illness, Case
+from case.filters import IllnessFilter, CaseFilter
 # Create your views here.
 
 
@@ -25,8 +27,13 @@ def edit_or_create_case(request, case_pk=None):
 
 def index_case(request):
     cases = Case.objects.all()
+    f = CaseFilter(request.GET, cases)
+    paginator = Paginator(f.qs, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'cases': cases
+        'filter': f,
+        'page_obj': page_obj
     }
     return render(request, 'case/case/index.html', context)
 
@@ -60,8 +67,14 @@ def edit_or_create_illness(request, illness_pk=None):
 
 def index_illnesses(request):
     illnesses = Illness.objects.all()
+    f = IllnessFilter(request.GET, illnesses)
+    paginator = Paginator(f.qs, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'illnesses': illnesses
+        'filter': f,
+        'page_obj': page_obj
     }
     return render(request, 'case/illness/index.html', context)
 

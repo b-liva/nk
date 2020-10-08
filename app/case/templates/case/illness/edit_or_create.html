@@ -1,15 +1,25 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">ثبت</button>
-    </form>
-    <div>
-        <ol>
-            {% for illness in illnesses %}
-                <li>{{ illness.title }}</li>
-            {% endfor %}
-        </ol>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">بیماری جدید</h4>
+                <p class="card-category">از طریق این فرم می توانید بیماری جدید ثبت نمایید.</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.title }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right">ثبت</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+        {% include 'case/illness/table.html' with illnesses=illnesses %}
     </div>
 {% endblock %}

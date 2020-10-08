@@ -13,6 +13,13 @@ class IllnessModelForm(forms.ModelForm):
             'title': ('عنوان بیماری'),
         }
 
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'عموان بیماری'
+            }),
+        }
+
 
 class CaseModelForm(forms.ModelForm):
 
@@ -26,6 +33,20 @@ class CaseModelForm(forms.ModelForm):
             'date': 'تاریخ',
             'description': 'توضیحات',
         }
+        widgets = {
+            'recipient': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+            'illness': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+            }),
+            'date': forms.DateInput(attrs={
+                'class': 'form-control',
+            }),
+        }
 
     def __init__(self, *args, **kwargs):
         super(CaseModelForm, self).__init__(*args, **kwargs)
@@ -33,19 +54,3 @@ class CaseModelForm(forms.ModelForm):
             label= ('تاریخ'),
             widget=AdminJalaliDateWidget
         )
-
-    widgets = {
-        'recipient': forms.Select(attrs={
-            'class': 'form-control',
-
-        }),
-        'illness': forms.Select(attrs={
-            'class': 'form-control',
-            'placeholder': 'بیماری',
-
-        }),
-        'description': forms.Textarea(attrs={
-            'class': 'form-control',
-            'placeholder': 'توضیحات',
-        }),
-    }

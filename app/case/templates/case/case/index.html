@@ -1,4 +1,9 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    {% include 'case/case/table.html' with cases=cases %}
+    <form method="get">
+    {{ filter.form }}
+    <input type="submit" value="جستجو"/>
+    </form>
+    {% include 'case/case/table.html' with cases=page_obj %}
+    {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
 {% endblock %}

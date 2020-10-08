@@ -1,0 +1,40 @@
+<div class="col-md-12">
+        <div class="card" dir="rtl">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">بیماری ها</h4>
+                <p class="card-category"> Here is a subtitle for this table</p>
+            </div>
+            <div class="card-body" dir="rtl">
+                <div class="table-responsive" dir="rtl">
+                    <table class="table" dir="rtl">
+                        <thead class=" text-primary">
+                        <th>
+                            عنوان بیماری
+                        </th>
+                        <th>
+                            تعداد پرونده
+                        </th>
+                        <th>
+                            مبلغ حمایت
+                        </th>
+                        </thead>
+                        <tbody>
+                        {% for illness in illnesses %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'case:illness_details' illness_pk=illness.pk %}">{{ illness.title }}</a>
+                                </td>
+                                <td>
+                                    {{ illness.case_set.count }}
+                                </td>
+                                <td class="text-primary">
+                                    $36,738
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,9 +1,9 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils.timezone import now
 
 from core.models import TimeStampedModel
 from recipient.models import Recipient
-from supporter.models import Supporter
 
 
 class Illness(TimeStampedModel):
@@ -16,10 +16,16 @@ class Illness(TimeStampedModel):
 class Case(TimeStampedModel):
     recipient = models.ForeignKey(Recipient, on_delete=models.CASCADE)
     illness = models.ManyToManyField(Illness)
-    description = models.TextField(max_length=1000, null=True, blank=True)
+    description = models.TextField(max_length=1000, blank=True, null=True)
     date = models.DateField(default=now)
 
     def __str__(self):
         return f"{self.recipient.first_name} {self.recipient.last_name}: {self.illness.count()}"
+
+    def total_amount(self):
+        amount = self.commitment_set.aggregate(sum=Sum('amount'))['sum']
+        return amount
+
+
 
 

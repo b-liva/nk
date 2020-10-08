@@ -1,7 +1,7 @@
 {% extends 'core/page_elements/base.html' %}
 {% load jalali_tags static %}
 {% block content %}
-    <div class="col-md-12">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">پرونده جدید</h4>
@@ -10,37 +10,30 @@
             <div class="card-body">
                 <form method="POST">
                     {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-2">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="recipient">مددجو</label>
                             {{ form.recipient }}
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {#                                <label class="bmd-label-floating">نام</label>#}
-                                {{ form.illness }}
-                            </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="illness">بیماری</label>
+                            {{ form.illness }}
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {#                                <label class="bmd-label-floating">Username</label>#}
-                                {{ form.date }}
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                {#                                <label class="bmd-label-floating">Username</label>#}
-                                {{ form.description }}
-                            </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="date">تاریخ پرونده</label>
+                            {{ form.date }}
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary pull-right">ثبت</button>
-                    <div class="clearfix"></div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="description">توضیحات</label>
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit form</button>
                 </form>
             </div>
         </div>
-    </div>
-    <div class="row">
         {% include 'case/case/table.html' with cases=cases %}
     </div>
-
 {% endblock %}
