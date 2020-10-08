@@ -1,4 +1,9 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    {% include 'caseworker/table.html' with caseworkers=caseworkers %}
+    <form method="get">
+    {{ filter.form }}
+    <input type="submit" value="جستجو"/>
+    </form>
+    {% include 'caseworker/table.html' with caseworkers=page_obj %}
+    {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
 {% endblock %}

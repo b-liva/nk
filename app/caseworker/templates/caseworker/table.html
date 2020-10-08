@@ -1,3 +1,4 @@
+{% load humanize %}
 <div class="col-md-12">
     <div class="card">
             <div class="card-header card-header-primary">
@@ -34,7 +35,7 @@
                                     5
                                 </td>
                                 <td class="text-primary">
-                                    $36,738
+                                    {{ cw.total_support|floatformat|intcomma }}
                                 </td>
                             </tr>
                         {% endfor %}
