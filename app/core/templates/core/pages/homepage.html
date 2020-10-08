@@ -1,1 +1,63 @@
 {% extends 'core/page_elements/base.html' %}
+{% load jalali_tags %}
+{% block content %}
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title mt-0"> خلاصه</h4>
+                <p class="card-category"> لیست خلاصه عملیات</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                        <th>
+                            حامی
+                        </th>
+                        <th>
+                            مددکار
+                        </th>
+                        <th>
+                            تاریخ آخرین تماس
+                        </th>
+                        <th>
+                            پرونده
+                        </th>
+                        <th>
+                            نتیجه
+                        </th>
+                        </thead>
+                        <tbody>
+                        {% for fu in followup %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'supporter:details' supporter_pk=fu.supporter.pk %}">
+                                        {{ fu.supporter.last_name }}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'caseworker:details' cw_pk=fu.caseworker.pk %}">
+                                        {{ fu.caseworker.first_name }} {{ fu.caseworker.last_name }}</a>
+                                </td>
+                                <td>
+                                    {{ fu.date|to_jalali:'%y/%m/%d' }}
+                                </td>
+                                <td>
+                                    <ol>
+                                        {% for case in fu.case.all %}
+                                            <li>{{ case }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                </td>
+                                <td>
+                                    {{ fu.description }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

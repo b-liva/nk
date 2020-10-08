@@ -1,47 +1,48 @@
+{% load humanize %}
 <div class="col-md-12">
     <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title ">مدد جویان</h4>
-                <p class="card-category"> لیست مددجویان فعال</p>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class=" text-primary">
-                        <th>
-                            نام
-                        </th>
-                        <th>
-                            تاریخ
-                        </th>
-                        <th>
-                            تعداد پرونده
-                        </th>
-                        <th>
-                            مجموع حمایت
-                        </th>
-                        </thead>
-                        <tbody>
-                        {% for rec in recipients %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'recipient:details' recipient_pk=rec.pk %}">
-                                        {{ rec.first_name }}  {{ rec.last_name }}</a>
-                                </td>
-                                <td>
-                                    {{ rec.created }}
-                                </td>
-                                <td>
-                                    3
-                                </td>
-                                <td class="text-primary">
-                                    $36,738
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+        <div class="card-header card-header-primary">
+            <h4 class="card-title ">مدد جویان</h4>
+            <p class="card-category"> لیست مددجویان فعال</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        نام
+                    </th>
+                    <th>
+                        تاریخ
+                    </th>
+                    <th>
+                        تعداد پرونده
+                    </th>
+                    <th>
+                        مجموع حمایت
+                    </th>
+                    </thead>
+                    <tbody>
+                    {% for rec in recipients %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'recipient:details' recipient_pk=rec.pk %}">
+                                    {{ rec.first_name }} {{ rec.last_name }}</a>
+                            </td>
+                            <td>
+                                {{ rec.created }}
+                            </td>
+                            <td>
+                                {{ rec.total_cases }}
+                            </td>
+                            <td class="text-primary">
+                                {{ rec.total_amount|floatformat|intcomma }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 </div>

@@ -1,8 +1,9 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+
+from recipient.filters import RecFilter
 from recipient.forms import (RecipientModelForm,)
 from recipient.models import Recipient
-from case.models import Illness
-from case.forms import IllnessModelForm
 
 
 # Create your views here.
@@ -21,8 +22,11 @@ def edit_or_create(request, recipient_pk=None):
         form = RecipientModelForm(instance=recipient)
 
     recipients = Recipient.objects.all()
+    paginator = Paginator(recipients, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'recipients': recipients,
+        'page_obj': page_obj,
         'form': form
     }
     return render(request, 'recipient/recipient/edit_or_create.html', context)
@@ -30,8 +34,14 @@ def edit_or_create(request, recipient_pk=None):
 
 def index_recipients(request):
     recipients = Recipient.objects.all()
+    f = RecFilter(request.GET, recipients)
+    paginator = Paginator(f.qs, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'recipients': recipients,
+        'filter': f,
+        'page_obj': page_obj
     }
     return render(request, 'recipient/recipient/index.html', context)
 
