@@ -1,9 +1,24 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    <form method="get">
-    {{ filter.form }}
-    <input type="submit" value="جستجو"/>
-    </form>
+    <div class="col-md-12">
+        <form method="get">
+            <div class="form-row align-items-center">
+                <div class="col-md-3">
+                    {{ filter.form.recipient }}
+                </div>
+                <div class="col-md-12">
+                    <div class="form-check form-check-inline">
+                        {{ filter.form.illness }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
     {% include 'case/case/table.html' with cases=page_obj %}
     {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
 {% endblock %}
