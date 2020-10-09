@@ -1,0 +1,28 @@
+.bg-purple {
+    color: white;
+    background-color: #9c27b0 !important;
+    border-color: #9c27b0;
+    box-shadow: 0 2px 2px 0 rgba(156, 39, 176, .14), 0 3px 1px -2px rgba(156, 39, 176, .2), 0 1px 5px 0 rgba(156, 39, 176, .12);
+}
+.bg-primary {
+    color: white;
+}
+.badge-th-purple{
+    color: white;
+    background-color: #9c27b0 !important;
+    border-color: #9c27b0;
+    box-shadow: 0 2px 2px 0 rgba(156, 39, 176, .14), 0 3px 1px -2px rgba(156, 39, 176, .2), 0 1px 5px 0 rgba(156, 39, 176, .12);
+}
+.bg-th-green{
+    color: white;
+    background-color: #00A9A1 !important;
+    border-color: #9c27b0;
+    box-shadow: 0 2px 2px 0 rgba(156, 39, 176, .14), 0 3px 1px -2px rgba(156, 39, 176, .2), 0 1px 5px 0 rgba(156, 39, 176, .12);
+}
+.text-th-green{
+    color: #00A9A1;
+}
+.badge-th-green{
+    color: #fff;
+    background-color: #00A9A1;
+}
