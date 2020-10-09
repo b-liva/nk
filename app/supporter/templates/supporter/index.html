@@ -1,11 +1,27 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
-    <div class="row">
+    <div class="col-md-8">
         <form method="get">
-            {{ filter.form }}
-            <input type="submit" value="جستجو"/>
+            <div class="form-row align-items-end">
+                <div class="col-md-3">
+                    <label for="caseworker">مددکار</label>
+                    {{ filter.form.caseworker }}
+                </div>
+                <div class="col-md-3">
+                    <label for="last_name">نام حامی</label>
+                    {{ filter.form.last_name }}
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+            </div>
+
         </form>
     </div>
+    <div class="col-md-4"></div>
+
     {% include 'supporter/table.html' with supporters=page_obj %}
     {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
 {% endblock %}

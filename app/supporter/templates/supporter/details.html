@@ -1,48 +1,81 @@
 {% extends 'core/page_elements/base.html' %}
 {% load jalali_tags %}
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <p>{{ supporter }}<span style="color: darkblue; size: .8em">({{ supporter.caseworker }})</span></p>
-            <p>{{ supporter.created|to_jalali:'%y/%m/%d' }}</p>
+    <div class="col-md-12">
+
+        <div class="card border-success mb-3 col-sm-6 col-md-3 px-0">
+            <div class="card-header bg-transparent border-success">ماهانه</div>
+            <div class="card-body">
+                <h3>{{ supporter }}</h3>
+                <p>آخرین واریز:
+                    <span class="text-primary">{{ supporter.commitment_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
+                <h3>اطلاعات تماس</h3>
+                <div>
+                    {% for contact in supporter.contact_set.all %}
+                        {% if contact.mobile %}
+                            <div><span class="col-md-2"></span><span class="col-md-10m-0 p-0"><i class="fa fa-mobile"
+                                                                                                 aria-hidden="true"></i> {{ contact.mobile }}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% for contact in supporter.contact_set.all %}
+                        {% if contact.phone %}
+                            <div><span class="col-md-2"></span><span class="col-md-10 m-0 p-0"><i class="fa fa-phone"
+                                                                                                  aria-hidden="true"></i> {{ contact.phone }}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card-footer border-success p-0 m-0">
+                <a class="btn btn-sm btn-primary m-0"
+                   href="{% url 'caseworker:details' cw_pk=supporter.caseworker.pk %}">{{ supporter.caseworker }}</a>
+            </div>
         </div>
-        <div class="col-md-12">
-            <h3>اطلاعات تماس</h3>
-            <ol>
-                {% for contact in supporter.contact_set.all %}
-                    <li><i class="fa fa-mobile" aria-hidden="true"></i> {{ contact.mobile }} -
-                        <i class="fa fa-phone" aria-hidden="true"></i> {{ contact.phone }}
-                    </li>
-                {% endfor %}
-            </ol>
-            <a class="btn btn-sm" href="{% url 'supporter:edit' supporter_pk=supporter.pk %}">ویرایش</a>
-            <a class="btn btn-sm" href="{% url 'supporter:create_contact' supporter_pk=supporter.pk %}">ثبت اطلاعات
-                تماس</a>
-            <a class="btn btn-sm" href="{% url 'supporter:change_cw' supporter_pk=supporter.pk %}">تغییر مددکار</a>
-            <a class="btn btn-sm" href="{% url 'supporter:create_followup' supporter_pk=supporter.pk %}">ثبت پیگیری</a>
-        </div>
-        <div class="col-md-6">
-            <h3>سوابق تغییر مددکار</h3>
-            <ol>
-                {% for cw_change in supporter.supportercwchange_set.all %}
-                    <li>تغییر از
-                        {{ cw_change.prev_cw }} به {{ cw_change.new_cw }}
-                        در تاریخ
-                        <p>{{ cw_change.date|to_jalali:'%y/%m/%d' }}</p>
-                    </li>
-                {% endfor %}
-            </ol>
-        </div>
-        <div class="col-md-6">
-            <h3>شرح پیگیری</h3>
-            <ol>
+
+        <a class="btn btn-sm" href="{% url 'supporter:edit' supporter_pk=supporter.pk %}">ویرایش</a>
+        <a class="btn btn-sm" href="{% url 'supporter:create_contact' supporter_pk=supporter.pk %}">ثبت اطلاعات
+            تماس</a>
+        <a class="btn btn-sm" href="{% url 'supporter:change_cw' supporter_pk=supporter.pk %}">تغییر مددکار</a>
+        <a class="btn btn-sm" href="{% url 'supporter:create_followup' supporter_pk=supporter.pk %}">ثبت پیگیری</a>
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="text-center bg-th-green rounded">سوابق تغییر مددکار</h3>
+                <ol>
+                    {% for cw_change in supporter.supportercwchange_set.all %}
+                        <li class="row  d-flex align-items-center my-2">
+                        <span>
+                            <span class="mx-2">{{ cw_change.prev_cw }}</span>
+                           <i class="material-icons mx-2 text-th-green">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-short"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                    d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                            </svg>
+                        </i>
+                            <span class="mx-2">{{ cw_change.new_cw }}</span></span>
+
+                            <span class="badge badge-primary mx-2">{{ cw_change.date|to_jalali:'%y/%m/%d' }}</span>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-center bg-purple rounded">شرح پیگیری</h3>
                 {% for followup in supporter.followup_set.all %}
-                    <li>
-                        <p>{{ followup.date|to_jalali:'%y/%m/%d' }}: {{ followup.caseworker }}</p>
-                        <p>{{ followup.description }}</p>
-                    </li>
+                    <div>
+                        <div class="mt-4">
+                            <span class="mx-2 mt-6">{{ followup.caseworker }}</span><span
+                                class="badge badge-th-purple mx-2">{{ followup.date|to_jalali:'%y/%m/%d' }}</span>
+                        </div>
+                        <div class="card col-md-11 offset-1 my-1 py-3 px-3">
+                            <p class="card-text">{{ followup.description }}</p>
+                        </div>
+                    </div>
                 {% endfor %}
-            </ol>
+            </div>
         </div>
     </div>
 {% endblock %}
