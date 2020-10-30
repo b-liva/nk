@@ -1,8 +1,10 @@
 {% extends 'core/page_elements/base.html' %}
 {% block content %}
     <form method="get">
-    {{ filter.form }}
-    <input type="submit" value="جستجو"/>
+        <div class="form-row">
+            {{ filter.form }}
+            <input type="submit" value="جستجو">
+        </div>
     </form>
     {% include 'commitment/table.html' with commitments=page_obj %}
     {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}

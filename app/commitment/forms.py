@@ -4,9 +4,11 @@ from jalali_date.widgets import AdminJalaliDateWidget, AdminSplitJalaliDateTime
 from django.utils.translation import gettext as _
 
 from commitment.models import Commitment
+from supporter.models import Supporter
 
 
 class CommitmentModelForm(forms.ModelForm):
+
     class Meta:
         model = Commitment
         fields = ('case', 'supporter', 'amount', 'date',)
@@ -38,4 +40,13 @@ class CommitmentModelForm(forms.ModelForm):
         self.fields['date'] = JalaliDateField(
             label=_('تاریخ'),  # date format is  "yyyy-mm-dd"
             widget=AdminJalaliDateWidget  # optional, to use default datepicker
+        )
+        self.fields['supporter'] = forms.ModelChoiceField(
+            queryset=Supporter.objects.all().order_by('created').reverse(),
+            empty_label='انتخاب حامی',
+            required=True,
+            label='حامی',
+            widget=forms.Select(attrs={
+                'class': 'form-control'
+            })
         )
