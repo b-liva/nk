@@ -32,7 +32,7 @@ class Gender(models.Model):
 class Persona(TimeStampedModel):
     gender = models.ForeignKey(Gender, on_delete=models.DO_NOTHING)
     first_name = models.CharField(max_length=30, blank=True, null=True)
-    last_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30, unique=True)
     is_active = models.BooleanField(default=True)
 
     class Meta:

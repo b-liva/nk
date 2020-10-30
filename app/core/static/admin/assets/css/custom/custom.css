@@ -1,3 +1,8 @@
+.h1, .h2, .h3, .h4, body, h1, h2, h3, h4, h5, h6, option{
+    font-family: IRANSans, Helvetica Neue, Roboto, Arial, Droid Sans, sans-serif !important;
+
+}
+
 .bg-purple {
     color: white;
     background-color: #9c27b0 !important;
