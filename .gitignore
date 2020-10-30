@@ -134,3 +134,5 @@ sandbox/
 /db0.sqlite3
 /static
 app/static/
+
+app/db0.sqlite3
