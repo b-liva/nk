@@ -50,8 +50,10 @@ def index(request):
 def details(request, supporter_pk):
     supp = get_object_or_404(Supporter, pk=supporter_pk)
     supp.contact_set.all()
+    followups = supp.followup_set.all().order_by('date').reverse()
     context = {
         'supporter': supp,
+        'followups': followups,
     }
     return render(request, 'supporter/details.html', context)
 

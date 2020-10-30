@@ -9,6 +9,8 @@
                 <h3>{{ supporter }}</h3>
                 <p>آخرین واریز:
                     <span class="text-primary">{{ supporter.commitment_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
+            <p>آخرین پیگیری:
+                    <span class="text-primary">{{ supporter.followup_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
                 <h3>اطلاعات تماس</h3>
                 <div>
                     {% for contact in supporter.contact_set.all %}
@@ -64,14 +66,14 @@
             </div>
             <div class="col-md-6">
                 <h3 class="text-center bg-purple rounded">شرح پیگیری</h3>
-                {% for followup in supporter.followup_set.all %}
+                {% for followup in followups %}
                     <div>
                         <div class="mt-4">
                             <span class="mx-2 mt-6">{{ followup.caseworker }}</span><span
                                 class="badge badge-th-purple mx-2">{{ followup.date|to_jalali:'%y/%m/%d' }}</span>
                         </div>
-                        <div class="card col-md-11 offset-1 my-1 py-3 px-3">
-                            <p class="card-text">{{ followup.description }}</p>
+                        <div class="card col-md-11 offset-1 my-1 py-3">
+                            <p class="card-text px-2">{{ followup.description }}</p>
                         </div>
                     </div>
                 {% endfor %}

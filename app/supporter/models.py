@@ -34,6 +34,21 @@ class Contact(TimeStampedModel):
         return f"{self.mobile}"
 
 
+class SuContact(TimeStampedModel):
+    supporter = models.ForeignKey(Supporter, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class Phone(SuContact):
+    phone = models.CharField(max_length=15, null=True, blank=True, unique=True)
+
+
+class Mobile(SuContact):
+    mobile = models.CharField(max_length=15, null=True, blank=True, unique=True)
+
+
 class SupporterCwChange(TimeStampedModel):
     supporter = models.ForeignKey(Supporter, on_delete=models.CASCADE)
     prev_cw = models.ForeignKey(CaseWorker, on_delete=models.CASCADE, related_name='prev_ce')
