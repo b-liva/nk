@@ -87,7 +87,6 @@ def upsert_contact(request, supporter_pk, contact_pk=None):
         'contacts': contacts,
         'supporter': supporter
     }
-    print(context)
     return render(request, 'supporter/upsert_contact.html', context)
 
 
