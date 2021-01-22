@@ -1,11 +1,15 @@
-FROM python:3.8-alpine
+FROM centos:7
 
 ENV PATH="/scripts:${PATH}"
 
+RUN yum -y update && \
+    yum -y install python36 python36-devel gcc mariadb-server mariadb-devel && \
+    echo "alias python=python3" >> ~/.bashrc && \
+    ln -fs /usr/bin/pip3 /usr/bin/pip && \
+    pip install -U pip
+
 COPY ./requirements.txt /requirements.txt
-RUN apk add --update --no-cache --virtual .tmp gcc libc-dev linux-headers
 RUN pip install -r /requirements.txt
-RUN apk del .tmp
 
 RUN mkdir /app
 COPY ./app /app
@@ -15,10 +19,10 @@ COPY ./scripts /scripts
 RUN chmod +x /scripts/*
 
 RUN mkdir -p /vol/web/media
-RUN mkdir -p /vol/web/
+RUN mkdir -p /vol/web/static
 
-RUN adduser -D user
-RUN chown -R user:ser /vol
+RUN adduser user
+RUN chown -R user:user /vol
+RUN chmod -R 755 /vol/web
 USER user
-
-CMD ["entrypoint.sh"]
+CMD ["bash", "entrypoint.sh"]

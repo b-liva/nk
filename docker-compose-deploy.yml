@@ -1,0 +1,67 @@
+version: '3.7'
+
+services:
+  webapp:
+    image: bjcm/nkwebapp:d1.16
+    container_name: nk-webapp-service
+    restart: always
+    volumes:
+    - static_data:/vol/web
+    env_file: env_vars
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - nksharednet
+
+  proxy:
+    container_name: proxy
+    image: bjcm/nkproxy:d1.4
+    restart: always
+    volumes:
+    - static_data:/vol/static
+    ports:
+    - "8080:8080"
+    networks:
+      - nksharednet
+    depends_on:
+      - webapp
+  db:
+    image: "mariadb"
+    container_name: "nk-mariadb"
+    restart: always
+    env_file: env_vars
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - ${HOME}/projects/nikan/maria:/var/lib/mysql
+      # - /home/liva/projects/docker/maria:/var/lib/mysql
+    networks:
+      - nksharednet
+
+  phpmyadmin:
+    image: "phpmyadmin/phpmyadmin"
+    container_name: "nk-phpmyadmin"
+    restart: always
+    environment:
+      PMA_HOSTS: db
+    ports:
+      - "82:80"
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - ${HOME}/projects/nikan/phpmyadmin:/etc/phpmyadmin/config.user.inc.php
+    networks:
+      - nksharednet
+
+volumes:
+  static_data:
+  sqlite_db:
+
+networks:
+  nksharednet:
+    name: nk_shared_network

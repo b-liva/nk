@@ -136,3 +136,7 @@ sandbox/
 app/static/
 
 app/db0.sqlite3
+
+app/db.json
+
+env_vars

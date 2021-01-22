@@ -1,13 +1,18 @@
 version: '3.7'
 
 services:
-  app:
+  webapp:
     build:
       context: .
     ports:
     - "8000:8000"
     volumes:
     - ./app:/app
+    - /home/liva/files/nkdb:/vol/sqlitedb
     command: sh -c "python manage.py runserver 0.0.0.0:8000"
     environment:
       - DEBUG=1
+      - SECRET_KEY=samplesecretkey123
+      - ALLOWED_HOSTS=127.0.0.1,localhost
+      - SQLITE_DB=/vol/sqlitedb/db.sqlite3
+      - ROOT_PATH= "D:\\localprojects\\w\\nikan\\nk\\app\\"
