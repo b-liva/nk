@@ -101,15 +101,16 @@ WSGI_APPLICATION = 'nk.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-SQLITE_DB_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
-SQLITE_DB_ENV = os.environ.get('SQLITE_DB', None)
-if SQLITE_DB_ENV:
-    SQLITE_DB_PATH = SQLITE_DB_ENV
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': SQLITE_DB_PATH,
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
+        'HOST': os.environ.get('DB_HOST'),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
     }
 }
 
