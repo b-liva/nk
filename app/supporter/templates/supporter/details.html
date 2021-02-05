@@ -12,6 +12,8 @@
                     <span class="text-primary">{{ supporter.commitment_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
                 <p>آخرین پیگیری:
                     <span class="text-primary">{{ supporter.followup_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
+                <p>مجموع واریزی:
+                    <span class="text-primary">{{ total_commitment|intcomma }}</span></p>
                 <h3>اطلاعات تماس</h3>
                 <div>
                     {% for contact in supporter.contact_set.all %}

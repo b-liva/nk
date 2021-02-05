@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from supporter.forms import SupporterForm, ContactForm, SupportCwChangeForm, FollowUpModelForm
@@ -52,9 +53,11 @@ def details(request, supporter_pk):
     supp.contact_set.all()
     followups = supp.followup_set.all().order_by('date').reverse()
     commitments = supp.commitment_set.all()
+    total_commitment = commitments.aggregate(total=Sum('amount'))['total']
     context = {
         'supporter': supp,
         'commitments': commitments,
+        'total_commitment': total_commitment,
         'followups': followups,
     }
     return render(request, 'supporter/details.html', context)
