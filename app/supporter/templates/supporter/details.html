@@ -13,7 +13,7 @@
                 <p>آخرین پیگیری:
                     <span class="text-primary">{{ supporter.followup_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
                 <p>مجموع واریزی:
-                    <span class="text-primary">{{ total_commitment|intcomma }}</span></p>
+                    <span class="text-primary">{{ total_commitment|floatformat|intcomma }}</span></p>
                 <h3>اطلاعات تماس</h3>
                 <div>
                     {% for contact in supporter.contact_set.all %}
@@ -98,7 +98,7 @@
                         <td>{{ commitment.case }}</td>
                         <td>{{ commitment.caseworkder }}</td>
                         <td>{{ commitment.date|to_jalali:"%Y/%m/%d" }}</td>
-                        <td>{{ commitment.amount|intcomma }}</td>
+                        <td>{{ commitment.amount|floatformat|intcomma }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
