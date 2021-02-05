@@ -1,5 +1,6 @@
 {% extends 'core/page_elements/base.html' %}
 {% load jalali_tags %}
+{% load humanize %}
 {% block content %}
     <div class="col-md-12">
 
@@ -9,7 +10,7 @@
                 <h3>{{ supporter }}</h3>
                 <p>آخرین واریز:
                     <span class="text-primary">{{ supporter.commitment_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
-            <p>آخرین پیگیری:
+                <p>آخرین پیگیری:
                     <span class="text-primary">{{ supporter.followup_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
                 <h3>اطلاعات تماس</h3>
                 <div>
@@ -77,6 +78,29 @@
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-center bg-purple rounded">واریزی ها</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>پرونده</td>
+                        <td>مددکار</td>
+                        <td>تاریخ</td>
+                        <td>مبلغ</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for commitment in commitments %}
+                        <tr>
+                        <td>{{ commitment.case }}</td>
+                        <td>{{ commitment.caseworkder }}</td>
+                        <td>{{ commitment.date|to_jalali:"%Y/%m/%d" }}</td>
+                        <td>{{ commitment.amount|intcomma }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
