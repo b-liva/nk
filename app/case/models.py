@@ -26,6 +26,5 @@ class Case(TimeStampedModel):
         amount = self.commitment_set.aggregate(sum=Sum('amount'))['sum']
         return amount
 
-
-
-
+    def supporters_count(self):
+        return self.commitment_set.all().values('supporter_id').distinct().count()

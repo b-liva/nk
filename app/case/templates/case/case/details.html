@@ -1,9 +1,24 @@
 {% extends 'core/page_elements/base.html'  %}
 {% load jalali_tags %}
+{% load humanize %}
 {% block content %}
+    <div class="col-md-12">
+        <div class="card border-success mb-3 col-sm-6 col-md-3 px-0">
+            <div class="card-header bg-transparent border-success">پرونده</div>
+            <div class="card-body">
+                <h3>{{ case.recipient.first_name }} {{ case.recipient.last_name }}</h3>
+                <p>{{ case.date|to_jalali:'%y/%m/%d' }}</p>
+                <p>تعداد حامی
+                    <span class="text-primary">{{ case.supporters_count|floatformat|intcomma }}</span></p>
+                <p>حمایت جذب شده
+                    <span class="text-primary">{{ case.total_amount|floatformat|intcomma }}</span></p>
+            </div>
+            <div class="card-footer border-success p-0 m-0">
+                <a class="btn btn-sm btn-primary m-0" href="{% url 'case:edit_case' case_pk=case.pk %}">ویرایش</a>
+            </div>
+        </div>
+    </div>
     <div>
-        <p>{{ case.recipient.first_name }} {{ case.recipient.last_name }}</p>
-        <p>{{ case.date|to_jalali:'%y/%m/%d' }}</p>
-        <a href="{% url 'case:edit_case' case_pk=case.pk %}">ویرایش</a>
+        {% include 'commitment/table.html' with commitments=commitments %}
     </div>
 {% endblock %}

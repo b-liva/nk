@@ -40,8 +40,10 @@ def index_case(request):
 
 def case_details(requests, case_pk):
     case = Case.objects.get(pk=case_pk)
+    commitments = case.commitment_set.all()
     context = {
         'case': case,
+        'commitments': commitments,
     }
     return render(requests, 'case/case/details.html', context)
 
