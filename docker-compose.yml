@@ -1,18 +1,65 @@
-version: '3.7'
+version: '3.8'
 
 services:
   webapp:
     build:
       context: .
+    container_name: nk_local
     ports:
     - "8000:8000"
     volumes:
     - ./app:/app
-    - /home/liva/files/nkdb:/vol/sqlitedb
-    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+#    - /home/liva/files/nkdb:/vol/sqlitedb
+    command: python3 manage.py runserver 0.0.0.0:8000
     environment:
-      - DEBUG=1
+      - DJANGO_DEBUG=1
       - SECRET_KEY=samplesecretkey123
       - ALLOWED_HOSTS=127.0.0.1,localhost
-      - SQLITE_DB=/vol/sqlitedb/db.sqlite3
-      - ROOT_PATH= "D:\\localprojects\\w\\nikan\\nk\\app\\"
+#      - SQLITE_DB=/vol/sqlitedb/db.sqlite3
+      - ROOT_PATH="D:\\localprojects\\w\\nikan\\nk\\app\\"
+      - DJANGO_SETTINGS_MODULE=nk.settings.local
+      - DB_NAME=nk_local
+      - DB_USER=root
+      - DB_PASS=chichak
+      - DB_HOST=db
+      - PYTHONUNBUFFERED=1
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - nk_sharednet
+
+  db:
+    image: "mariadb:latest"
+    container_name: "nk-mariadb"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: chichak
+    ports:
+      - "3306:3306"
+    networks:
+      - nk_sharednet
+    volumes:
+      - ${HOME}/projects/nikan/maria:/var/lib/mysql
+
+  phpmyadmin:
+    image: "phpmyadmin/phpmyadmin"
+    container_name: "nk-phpmyadmin"
+    restart: always
+    environment:
+      PMA_HOSTS: db
+    ports:
+      - "82:80"
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - nk_sharednet
+    volumes:
+      - /home/liva/projects/nikan/phpmyadmin:/etc/phpmyadmin/config.user.inc.php
+
+networks:
+  nk_sharednet:
+    name: nk_shared_network

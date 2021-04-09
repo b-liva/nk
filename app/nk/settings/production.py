@@ -1,5 +1,6 @@
 from .base import *
 
+sys.path.insert(0, os.environ.get('ROOT_PATH', '/app/'))
 
 DATABASES = {
     'default': {
@@ -13,3 +14,5 @@ DATABASES = {
         },
     }
 }
+
+STATIC_ROOT = '/vol/web/static/'

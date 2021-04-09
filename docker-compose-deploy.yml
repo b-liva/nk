@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   webapp:
-    image: bjcm/nkwebapp:d1.16
+    image: bjcm/nkwebapp:d1.20
     container_name: nk-webapp-service
     restart: always
     volumes:
