@@ -150,8 +150,13 @@ USE_TZ = True
 STATIC_URL = "/static/static/"
 MEDIA_URL = "/static/media/"
 
-STATIC_ROOT = '/vol/web/static'
+# STATIC_ROOT = '/vol/web/static'
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 MEDIA_ROOT = '/vol/web/media'
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 AUTH_USER_MODEL = 'account.User'
 

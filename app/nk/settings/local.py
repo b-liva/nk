@@ -1,5 +1,8 @@
 from .base import *
 
+ROOT_PATH_LOCAL = os.environ.get('ROOT_PATH', None)
+if ROOT_PATH_LOCAL:
+    sys.path.insert(0, ROOT_PATH_LOCAL)
 
 DATABASES = {
     'default': {
