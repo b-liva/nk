@@ -12,3 +12,7 @@ class CaseWorker(Persona):
     def total_support(self):
         amount = self.commitment_set.all().aggregate(sum=Sum('amount'))['sum']
         return amount
+
+    def total_supporter(self):
+        supporter_count = self.supporter_set.all().count()
+        return supporter_count
