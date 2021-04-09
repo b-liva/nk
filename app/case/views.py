@@ -13,8 +13,8 @@ def edit_or_create_case(request, case_pk=None):
         case = Case()
     if request.method == 'POST':
         form = CaseModelForm(request.POST or None, instance=case)
-        form.save()
-        return redirect('case:create_case')
+        if form.is_valid():
+            form.save()
     else:
         form = CaseModelForm(instance=case)
     cases = Case.objects.all()

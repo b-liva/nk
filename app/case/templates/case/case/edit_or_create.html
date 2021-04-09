@@ -10,26 +10,30 @@
             <div class="card-body">
                 <form method="POST">
                     {% csrf_token %}
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="recipient">مددجو</label>
-                            {{ form.recipient }}
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="illness">بیماری</label>
-                            {{ form.illness }}
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="date">تاریخ پرونده</label>
-                            {{ form.date }}
-                        </div>
+                    <div>
+                        {{ form.as_table }}
                     </div>
-                    <div class="form-row">
-                        <div class="col-md-12 mb-3">
-                            <label for="description">توضیحات</label>
-                            {{ form.description }}
-                        </div>
-                    </div>
+{#                    <div class="form-row">#}
+{#                        <div class="col-md-4 mb-3">#}
+{#                            <label for="recipient">مددجو</label>#}
+{#                            {{ form.recipient }}#}
+{#                            {{ form.recipient.unique_error_message }}#}
+{#                        </div>#}
+{#                        <div class="col-md-4 mb-3">#}
+{#                            <label for="illness">بیماری</label>#}
+{#                            {{ form.illness }}#}
+{#                        </div>#}
+{#                        <div class="col-md-4 mb-3">#}
+{#                            <label for="date">تاریخ پرونده</label>#}
+{#                            {{ form.date }}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="form-row">#}
+{#                        <div class="col-md-12 mb-3">#}
+{#                            <label for="description">توضیحات</label>#}
+{#                            {{ form.description }}#}
+{#                        </div>#}
+{#                    </div>#}
                     <button class="btn btn-primary" type="submit">Submit form</button>
                 </form>
             </div>

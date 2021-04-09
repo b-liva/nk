@@ -37,7 +37,7 @@ class CaseModelForm(forms.ModelForm):
             'recipient': forms.Select(attrs={
                 'class': 'form-control',
             }),
-            'illness': forms.Select(attrs={
+            'illness': forms.SelectMultiple(attrs={
                 'class': 'form-control',
             }),
             'description': forms.Textarea(attrs={
