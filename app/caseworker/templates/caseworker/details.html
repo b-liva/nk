@@ -1,9 +1,24 @@
-{% extends 'core/page_elements/base.html'  %}
+{% extends 'core/page_elements/base.html' %}
 {% load jalali_tags %}
+{% load humanize %}
 {% block content %}
+    <div class="col-md-12">
+        <div class="card border-success mb-3 col-sm-6 col-md-3 px-0">
+            <div class="card-header bg-transparent border-success">ماهانه</div>
+            <div class="card-body">
+                <h3>{{ caseworker.first_name }} {{ caseworker.last_name }}</h3>
+                <p>{{ caseworker.created|to_jalali:'%y/%m/%d' }}</p>
+                <p>تعداد حامی
+                    <span class="text-primary">{{ caseworker.total_supporter|floatformat|intcomma }}</span></p>
+                <p>حمایت جذب شده
+                    <span class="text-primary">{{ caseworker.total_support|floatformat|intcomma }}</span></p>
+            </div>
+            <div class="card-footer border-success p-0 m-0">
+                <a class="btn btn-sm btn-primary m-0" href="{% url 'caseworker:edit' cw_pk=caseworker.pk %}">ویرایش</a>
+            </div>
+        </div>
+    </div>
     <div>
-        <p>{{ caseworker.first_name }} {{ caseworker.last_name }}</p>
-        <p>{{ caseworker.created|to_jalali:'%y/%m/%d' }}</p>
-        <a href="{% url 'caseworker:edit' cw_pk=caseworker.pk %}">ویرایش</a>
+        {% include 'supporter/table.html' with supporters=supporters %}
     </div>
 {% endblock %}

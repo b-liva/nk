@@ -48,7 +48,9 @@ def index(request):
 
 def details(request, cw_pk):
     caseworker = get_object_or_404(CaseWorker, pk=cw_pk)
+    supporters = caseworker.supporter_set.all()
     context = {
-        'caseworker': caseworker
+        'caseworker': caseworker,
+        'supporters': supporters
     }
     return render(request, 'caseworker/details.html', context)
