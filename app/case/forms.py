@@ -37,11 +37,12 @@ class CaseModelForm(forms.ModelForm):
             'recipient': forms.Select(attrs={
                 'class': 'form-control',
             }),
-            'illness': forms.SelectMultiple(attrs={
+            'illness': forms.CheckboxSelectMultiple(attrs={
                 'class': 'form-control',
             }),
             'description': forms.Textarea(attrs={
                 'class': 'form-control',
+                'placeholder': 'توضیحات',
             }),
             'date': forms.DateInput(attrs={
                 'class': 'form-control',
