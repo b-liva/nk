@@ -12,6 +12,10 @@
     list-style: none;
     width: 60px;
 }
+.illness-checkbox{
+    display: flex;
+    flex-wrap: wrap;
+}
 .illness{
     margin-bottom: 55px;
 }
@@ -32,4 +36,12 @@
 }
 .date input{
     border: 1px solid rgb(189, 187, 187)
+}
+html[dir="rtl"] .form-check{
+    direction: rtl;
+}
+.case-index {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
 }

@@ -1,17 +1,18 @@
 {% extends 'core/page_elements/base.html' %}
+{% load static %}
 {% block content %}
     <div class="col-md-12">
         <form method="get">
-            <div class="form-row align-items-center">
-                <div class="col-md-3">
+            <div class="form-row align-items-center case-index">
+                <div>
                     {{ filter.form.recipient }}
                 </div>
-                <div class="col-md-12">
-                    <div class="form-check form-check-inline">
+                <div>
+                    <div class="form-check form-check-inline illness-checkbox">
                         {{ filter.form.illness }}
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div>
                     <button class="btn btn-primary btn-round btn-just-icon">
                         <i class="material-icons">search</i>
                     </button>
@@ -21,4 +22,7 @@
     </div>
     {% include 'case/case/table.html' with cases=page_obj %}
     {% include 'core/page_elements/paginator.html' with page_obj=page_obj %}
+{% endblock %}
+{% block css_fiels %}
+    <link rel="stylesheet" href="{% static 'admin/assets/css/custom/case.css' %}">
 {% endblock %}
