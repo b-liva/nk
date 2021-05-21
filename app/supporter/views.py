@@ -1,5 +1,6 @@
 from django.db.models import Sum
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from supporter.forms import SupporterForm, ContactForm, SupportCwChangeForm, FollowUpModelForm
 from supporter.models import Supporter, Contact, SupporterCwChange, FollowUp
@@ -143,3 +144,18 @@ def create_followup(request, supporter_pk, followup_pk=None):
         'supporter': supporter,
     }
     return render(request, 'supporter/followup/followup_upsert.html', context)
+
+
+def autocomplete(request):
+    lookup = str(request.GET['query'])
+    supporters = Supporter.objects.filter(last_name__contains=lookup)
+
+    supporters_list = {}
+    supporters_list.update({
+        'suggestions': [{
+            'data': supp.pk,
+            'value': supp.last_name
+        } for supp in supporters]
+    })
+
+    return JsonResponse(supporters_list, safe=False)

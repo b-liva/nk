@@ -1,6 +1,8 @@
 {% extends 'core/page_elements/base.html' %}
 {% load jalali_tags static %}
-
+{% block css_fiels %}
+    <link href="{% static 'admin/custom/autocomplete/styles.css' %}" rel="stylesheet"/>
+{% endblock %}
 {% block content %}
     <div class="col-md-8">
         <div class="card">
@@ -12,19 +14,23 @@
                 <form method="POST">
                     {% csrf_token %}
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <label for="case">پرونده</label>
                             {{ form.case }}
                         </div>
-                        <div class="col-md-3">
-                            <label for="supporter">حامی</label>
-                            {{ form.supporter }}
+                        <div class="col-md-6">
+                            <label for="autocomplete">حامی:</label>
+                            <input class="form-control" type="text" name="su" id="autocomplete"
+                                   value="{{ supporter }}"/>
+                            <input type="hidden" class="form-control" name="su_value" id="su_value"
+                                   value="{{ supporter.pk }}">
                         </div>
-                        <div class="col-md-3">
+
+                        <div class="col-md-6">
                             <label for="amount">مبلغ</label>
                             {{ form.amount }}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <label for="date">تاریخ</label>
                             {{ form.date }}
                         </div>
@@ -44,4 +50,9 @@
     <!-- OR -->
     <!-- loading by form (if used AdminJalaliDateWidget) -->
     {{ form.media }}
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'admin/vendor/chosen/chosen.jquery.js' %}"></script>
+    <script src="{% static 'admin/assets/js/plugins/jquery.autocomplete.js' %}"></script>
+    <script src="{% static 'admin/custom/custom.js' %}"></script>
 {% endblock %}

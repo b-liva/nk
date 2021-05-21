@@ -23,7 +23,7 @@ The above copyright notice and this permission notice shall be included in all c
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport'/>
     <!-- CSS Files -->
-{#    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">#}
+    {#    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">#}
     <link href="{% static 'admin/assets/css/material-dashboard.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'admin/assets/css/material-dashboard-rtl.css' %}" rel="stylesheet"/>
     <!--     Fonts and icons     -->
@@ -33,6 +33,7 @@ The above copyright notice and this permission notice shall be included in all c
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{% static 'admin/assets/demo/demo.css' %}" rel="stylesheet"/>
+    <link href="{% static 'admin/vendor/chosen/chosen.css' %}" rel="stylesheet"/>
     <link href="{% static 'admin/assets/css/custom/fonts.css' %}" rel="stylesheet"/>
     <link href="{% static 'admin/assets/css/custom/custom.css' %}" rel="stylesheet"/>
     {% block css_fiels %}
@@ -241,7 +242,6 @@ The above copyright notice and this permission notice shall be included in all c
 <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 <script src="{% static '/admin/assets/js/plugins/nouislider.min.js' %}"></script>
 <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 <!-- Library for adding dinamically elements -->
 <script src="{% static '/admin/assets/js/plugins/arrive.min.js' %}"></script>

@@ -11,11 +11,10 @@ class CommitmentModelForm(forms.ModelForm):
 
     class Meta:
         model = Commitment
-        fields = ('case', 'supporter', 'amount', 'date',)
+        fields = ('case', 'amount', 'date',)
 
         labels = {
             'case': 'پرونده',
-            'supporter': 'حامی',
             'date': 'تاریخ',
             'amount': 'مبلغ',
         }
@@ -24,11 +23,8 @@ class CommitmentModelForm(forms.ModelForm):
             'case': forms.Select(attrs={
                 'class': 'form-control',
             }),
-            'supporter': forms.Select(attrs={
-                'class': 'form-control'
-            }),
             'date': forms.DateInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
             }),
             'amount': forms.TextInput(attrs={
                 'class': 'form-control'
@@ -38,15 +34,6 @@ class CommitmentModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CommitmentModelForm, self).__init__(*args, **kwargs)
         self.fields['date'] = JalaliDateField(
-            label=_('تاریخ'),  # date format is  "yyyy-mm-dd"
+            label=_('تاریخ'),  # date format is  "yyyy-mm-dd",
             widget=AdminJalaliDateWidget  # optional, to use default datepicker
-        )
-        self.fields['supporter'] = forms.ModelChoiceField(
-            queryset=Supporter.objects.all().order_by('created').reverse(),
-            empty_label='انتخاب حامی',
-            required=True,
-            label='حامی',
-            widget=forms.Select(attrs={
-                'class': 'form-control'
-            })
         )

@@ -1,0 +1,6 @@
+.autocomplete-suggestions {
+    border: 1px solid #e7e7e7;
+    background: #f4f4f4;
+    cursor: default;
+    overflow: auto;
+}
