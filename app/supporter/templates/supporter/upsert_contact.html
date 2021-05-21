@@ -5,7 +5,8 @@
             <div class="card-header card-header-primary">
                 <h4 class="card-title">اطلاعات تماس</h4>
                 <p class="card-category">ثبت اطلاعات تماس برای
-                    <span>{{ supporter.gender }} {{ supporter.last_name }}</span>
+                    <span>
+                        <a href="{% url 'supporter:details' supporter_pk=supporter.pk %}">{{ supporter.gender }} {{ supporter.last_name }}</a></span>
                 </p>
             </div>
             <div class="card-body">

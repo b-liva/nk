@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models import Sum
 from django.core.paginator import Paginator
 from django.http import JsonResponse
@@ -68,20 +69,22 @@ def upsert_contact(request, supporter_pk, contact_pk=None):
     supporter = get_object_or_404(Supporter, pk=supporter_pk)
     if contact_pk:
         contact = get_object_or_404(Contact, pk=contact_pk)
-        print('edit',  contact)
     else:
         contact = Contact()
-        print('add...', contact)
 
     if request.method == 'POST':
-        print('post')
         form = ContactForm(request.POST or None, instance=contact)
         if form.is_valid():
             contact_form = form.save(commit=False)
+            contact = Contact.objects.filter(mobile__contains=form.data.get('mobile'))
+            if contact.exists():
+                messages.add_message(request, messages.ERROR, message='مشترک با این شماره پیشتر ثبت شده است')
+                return redirect('supporter:details', supporter_pk=contact[0].supporter.pk)
             contact_form.supporter = supporter
             contact_form.save()
             # return redirect('supporter:create_contact', supporter_pk=supporter_pk)
-            return redirect('commitment:create')
+            messages.add_message(request, level=messages.SUCCESS, message='اطلاعات تماس ثبت شد.')
+            return redirect('supporter:details', supporter_pk=supporter_pk)
     else:
         form = ContactForm(instance=contact)
         print('!show db')

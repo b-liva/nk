@@ -3,30 +3,39 @@
 {% load humanize %}
 {% block content %}
     <div class="col-md-12">
+        {% if messages %}
+            {% include 'core/errors.html' %}
+        {% endif %}
+    </div>
+    <div class="col-md-12">
 
         <div class="card border-success mb-3 col-sm-6 col-md-3 px-0">
             <div class="card-header bg-transparent border-success">ماهانه</div>
             <div class="card-body">
                 <h3>{{ supporter }}</h3>
                 <p>آخرین واریز:
-                    <span class="text-primary">{{ supporter.commitment_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
+                    <span class="text-primary">{{ supporter.commitment_set.last.date|to_jalali:"%Y/%m/%d" }}</span>
+                </p>
                 <p>آخرین پیگیری:
-                    <span class="text-primary">{{ supporter.followup_set.last.date|to_jalali:"%Y/%m/%d" }}</span></p>
+                    <span class="text-primary">{{ supporter.followup_set.last.date|to_jalali:"%Y/%m/%d" }}</span>
+                </p>
                 <p>مجموع واریزی:
                     <span class="text-primary">{{ total_commitment|floatformat|intcomma }}</span></p>
                 <h3>اطلاعات تماس</h3>
                 <div>
                     {% for contact in supporter.contact_set.all %}
                         {% if contact.mobile %}
-                            <div><span class="col-md-2"></span><span class="col-md-10m-0 p-0"><i class="fa fa-mobile"
-                                                                                                 aria-hidden="true"></i> {{ contact.mobile }}</span>
+                            <div><span class="col-md-2"></span><span class="col-md-10m-0 p-0"><i
+                                    class="fa fa-mobile"
+                                    aria-hidden="true"></i> {{ contact.mobile }}</span>
                             </div>
                         {% endif %}
                     {% endfor %}
                     {% for contact in supporter.contact_set.all %}
                         {% if contact.phone %}
-                            <div><span class="col-md-2"></span><span class="col-md-10 m-0 p-0"><i class="fa fa-phone"
-                                                                                                  aria-hidden="true"></i> {{ contact.phone }}</span>
+                            <div><span class="col-md-2"></span><span class="col-md-10 m-0 p-0"><i
+                                    class="fa fa-phone"
+                                    aria-hidden="true"></i> {{ contact.phone }}</span>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -42,6 +51,7 @@
         <a class="btn btn-sm" href="{% url 'supporter:create_contact' supporter_pk=supporter.pk %}">ثبت اطلاعات
             تماس</a>
         <a class="btn btn-sm" href="{% url 'supporter:change_cw' supporter_pk=supporter.pk %}">تغییر مددکار</a>
+        <a class="btn btn-sm" href="{% url 'commitment:create' %}">ثبت واریزی</a>
         <a class="btn btn-sm" href="{% url 'supporter:create_followup' supporter_pk=supporter.pk %}">ثبت پیگیری</a>
     </div>
     <div class="col-md-10">
@@ -95,10 +105,10 @@
                     <tbody>
                     {% for commitment in commitments %}
                         <tr>
-                        <td>{{ commitment.case }}</td>
-                        <td>{{ commitment.caseworkder }}</td>
-                        <td>{{ commitment.date|to_jalali:"%Y/%m/%d" }}</td>
-                        <td>{{ commitment.amount|floatformat|intcomma }}</td>
+                            <td>{{ commitment.case }}</td>
+                            <td>{{ commitment.caseworkder }}</td>
+                            <td>{{ commitment.date|to_jalali:"%Y/%m/%d" }}</td>
+                            <td>{{ commitment.amount|floatformat|intcomma }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
