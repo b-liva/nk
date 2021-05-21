@@ -35,5 +35,7 @@ class CommitmentModelForm(forms.ModelForm):
         super(CommitmentModelForm, self).__init__(*args, **kwargs)
         self.fields['date'] = JalaliDateField(
             label=_('تاریخ'),  # date format is  "yyyy-mm-dd",
-            widget=AdminJalaliDateWidget  # optional, to use default datepicker
+            widget=AdminJalaliDateWidget,  # optional, to use default datepicker
         )
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] += ' form-control'
