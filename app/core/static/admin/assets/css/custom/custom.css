@@ -31,3 +31,7 @@
     color: #fff;
     background-color: #00A9A1;
 }
+
+.card .card-header {
+    z-index: auto!important;
+}
