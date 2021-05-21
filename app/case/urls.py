@@ -5,6 +5,7 @@ app_name = 'case'
 urlpatterns = [
     path('create/', views.edit_or_create_case, name='create_case'),
     path('index/', views.index_case, name='index_case'),
+    path('autocomplete', views.autocomplete, name='autocomplete'),
     path('<int:case_pk>/', include([
         path('details/', views.case_details, name='details'),
         path('edit/', views.edit_or_create_case, name='edit_case'),

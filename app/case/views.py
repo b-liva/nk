@@ -1,4 +1,6 @@
 from django.core.paginator import Paginator
+from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from case.forms import IllnessModelForm, CaseModelForm
 from case.models import Illness, Case
@@ -87,3 +89,23 @@ def illness_details(request, illness_pk):
         'illness': illness
     }
     return render(request, 'case/illness/details.html', context)
+
+
+def autocomplete(request):
+    lookup = str(request.GET['query'])
+    # supporters = Case.objects.filter(recipient__last_name__contains=lookup)
+
+    cases = Case.objects.filter(
+        Q(recipient__last_name__icontains=lookup) |
+        Q(recipient__first_name__icontains=lookup)
+    )
+
+    cases_list = {}
+    cases_list.update({
+        'suggestions': [{
+            'data': case.pk,
+            'value': case.__str__()
+        } for case in cases]
+    })
+
+    return JsonResponse(cases_list, safe=False)

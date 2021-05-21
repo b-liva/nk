@@ -11,18 +11,14 @@ class CommitmentModelForm(forms.ModelForm):
 
     class Meta:
         model = Commitment
-        fields = ('case', 'amount', 'date',)
+        fields = ('amount', 'date',)
 
         labels = {
-            'case': 'پرونده',
             'date': 'تاریخ',
             'amount': 'مبلغ',
         }
 
         widgets = {
-            'case': forms.Select(attrs={
-                'class': 'form-control',
-            }),
             'date': forms.DateInput(attrs={
                 'class': 'form-control',
             }),

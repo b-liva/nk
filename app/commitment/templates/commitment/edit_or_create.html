@@ -15,8 +15,11 @@
                     {% csrf_token %}
                     <div class="form-row">
                         <div class="col-md-6">
-                            <label for="case">پرونده</label>
-                            {{ form.case }}
+                            <label for="case_autocomplete">پرونده:</label>
+                            <input class="form-control" type="text" name="case" id="case_autocomplete"
+                                   value="{{ case }}"/>
+                            <input type="hidden" class="form-control" name="case_value" id="case_value"
+                                   value="{{ case.pk }}">
                         </div>
                         <div class="col-md-6">
                             <label for="autocomplete">حامی:</label>

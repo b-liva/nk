@@ -1,5 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+
+from case.models import Case
 from commitment.models import Commitment
 from commitment.forms import CommitmentModelForm
 from commitment.filters import CommitmentFilter
@@ -16,6 +18,7 @@ def edit_or_create(request, commitment_pk=None):
         form = CommitmentModelForm(request.POST or None, instance=commitment)
         if form.is_valid():
             cm = form.save(commit=False)
+            cm.case = get_object_or_404(Case, pk=request.POST.get('case_value'))
             cm.supporter = get_object_or_404(Supporter, pk=request.POST.get('su_value'))
             cm.save()
             return redirect('commitment:create')
