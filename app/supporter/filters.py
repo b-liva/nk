@@ -15,16 +15,16 @@ class SupporterFilter(django_filters.FilterSet):
         }
 
     last_name = django_filters.CharFilter(
-            lookup_expr='icontains',
-            label='حامی',
-            widget=forms.TextInput(attrs={'class': 'form-control'})
-        )
+        lookup_expr='icontains',
+        label='حامی',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
     caseworker = django_filters.ModelChoiceFilter(
         queryset=CaseWorker.objects.all().order_by('last_name'),
         empty_label='انتخاب مددکار'
     )
+    contact = django_filters.CharFilter(field_name='contact__mobile', lookup_expr='contains')
 
     class Meta:
         model = Supporter
-        fields = ['caseworker', 'last_name']
-
+        fields = ['caseworker', 'last_name', 'contact']
