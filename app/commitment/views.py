@@ -22,7 +22,7 @@ def edit_or_create(request, commitment_pk=None):
     else:
         form = CommitmentModelForm(instance=commitment)
 
-    commitments = Commitment.objects.all()
+    commitments = Commitment.objects.all().order_by('id').reverse()
     paginator = Paginator(commitments, 50)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
