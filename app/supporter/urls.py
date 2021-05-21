@@ -1,5 +1,5 @@
 from django.urls import path, include
-from supporter import views
+from supporter import views, cbv_views
 
 app_name = 'supporter'
 urlpatterns = [
@@ -14,9 +14,13 @@ urlpatterns = [
         path('create-followup', views.create_followup, name='create_followup'),
         path('contact/<int:contact_pk>/', include([
             path('update', views.upsert_contact, name='update_contact'),
+
         ])),
         path('followup<int:followup_pk>/', include([
             path('update', views.create_followup, name='update_followup')
         ])),
     ])),
+    path('<int:pk>/', include([
+        path('delete', cbv_views.DeleteContact.as_view(), name='delete_contact')
+    ]))
 ]

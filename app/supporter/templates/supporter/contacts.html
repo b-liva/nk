@@ -14,17 +14,18 @@
                     <th>
                         موبایل
                     </th>
+                    <th></th>
                     </thead>
                     <tbody>
                     {% for contact in contacts %}
                         <tr>
+                            <td>{% if contact.phone %}{{ contact.phone }}{% endif %}</td>
+                            <td>{{ contact.mobile }}</td>
                             <td>
                                 <a href="{% url 'supporter:update_contact' supporter_pk=contact.supporter.pk contact_pk=contact.pk %}">
-                                    {{ contact.phone }}</a>
-                            </td>
-                            <td>
-                                {{ contact.mobile }}
-                            </td>
+                                    ویرایش</a>
+                                <a onclick="return confirm('مطمئن هستید؟')"
+                                   href="{% url 'supporter:delete_contact' pk=contact.pk %}">حذف</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
