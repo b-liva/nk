@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core import views
+from account.views import CbvLogin, CbvLogout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login', CbvLogin.as_view(), name='cbv-login'),
+    path('logout', CbvLogout.as_view(), name='cbv-logout'),
     path('', views.homepage, name='home'),
     path('supporter/', include('supporter.urls')),
     path('recipient/', include('recipient.urls')),
